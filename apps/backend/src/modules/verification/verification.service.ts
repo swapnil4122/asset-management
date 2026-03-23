@@ -10,6 +10,7 @@ import { VerificationRequest } from './entity/verification-request.entity';
 import { Asset } from '../asset/entity/asset.entity';
 import { CreateVerificationRequestDto } from './dto/create-verification-request.dto';
 import { ApproveVerificationDto } from './dto/approve-verification.dto';
+import { RejectVerificationDto } from './dto/reject-verification.dto';
 import { AssetStatus, VerificationStatus } from '@asset-mgmt/shared-types';
 
 @Injectable()
@@ -113,6 +114,42 @@ export class VerificationService {
     // Update asset
     const asset = request.asset;
     asset.status = AssetStatus.VERIFIED;
+    await this.assetRepository.save(asset);
+
+    return this.verificationRepository.save(request);
+  }
+
+  async rejectRequest(
+    id: string,
+    verifierId: string,
+    rejectDto: RejectVerificationDto,
+  ): Promise<VerificationRequest> {
+    const request = await this.verificationRepository.findOne({
+      where: { id },
+      relations: ['asset'],
+    });
+
+    if (!request) {
+      throw new NotFoundException(
+        `Verification request with ID ${id} not found`,
+      );
+    }
+
+    if (request.status !== VerificationStatus.PENDING) {
+      throw new BadRequestException(
+        `Request already in status: ${request.status}`,
+      );
+    }
+
+    // Update request
+    request.status = VerificationStatus.REJECTED;
+    request.reviewedById = verifierId;
+    request.reviewedAt = new Date();
+    request.rejectionReason = rejectDto.reason;
+
+    // Update asset
+    const asset = request.asset;
+    asset.status = AssetStatus.REJECTED;
     await this.assetRepository.save(asset);
 
     return this.verificationRepository.save(request);

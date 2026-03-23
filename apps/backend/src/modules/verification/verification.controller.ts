@@ -10,6 +10,7 @@ import {
 import { VerificationService } from './verification.service';
 import { CreateVerificationRequestDto } from './dto/create-verification-request.dto';
 import { ApproveVerificationDto } from './dto/approve-verification.dto';
+import { RejectVerificationDto } from './dto/reject-verification.dto';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { RolesGuard } from '../auth/guards/roles.guard';
 import { Roles } from '../auth/decorators/roles.decorator';
@@ -58,12 +59,28 @@ export class VerificationController {
   @Post('approve/:id')
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles(UserRole.VERIFIER, UserRole.ADMIN)
-  @ApiOperation({ summary: 'Approve a verification request (Verifier/Admin only)' })
+  @ApiOperation({
+    summary: 'Approve a verification request (Verifier/Admin only)',
+  })
   async approve(
     @Param('id') id: string,
     @Body() approveDto: ApproveVerificationDto,
     @Request() req: any,
   ) {
     return this.verificationService.approveRequest(id, req.user.id, approveDto);
+  }
+
+  @Post('reject/:id')
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(UserRole.VERIFIER, UserRole.ADMIN)
+  @ApiOperation({
+    summary: 'Reject a verification request (Verifier/Admin only)',
+  })
+  async reject(
+    @Param('id') id: string,
+    @Body() rejectDto: RejectVerificationDto,
+    @Request() req: any,
+  ) {
+    return this.verificationService.rejectRequest(id, req.user.id, rejectDto);
   }
 }

@@ -6,9 +6,9 @@ This document tracks the execution progress of all tasks defined in `MASTER_TASK
 | Category | Count |
 |----------|-------|
 | **Total Tasks** | 50 |
-| **Completed** | 22 |
+| **Completed** | 23 |
 | **In Progress** | 1 |
-| **Pending** | 27 |
+| **Pending** | 26 |
 
 ---
 
@@ -38,6 +38,7 @@ This document tracks the execution progress of all tasks defined in `MASTER_TASK
 | TASK-020 | Asset Image Upload (IPFS) | Completed | 2026-03-23 | Implemented Multer and IPFS service |
 | TASK-021 | Submit Verification Request API | Completed | 2026-03-23 | Implemented request creation and asset linkage |
 | TASK-022 | Verifier Dashboard API | Completed | 2026-03-23 | Implemented verifier-only views and status updates |
+| TASK-023 | Approve Verification Workflow | Completed | 2026-03-23 | Implemented approval logic and asset status transition |
 
 ---
 
@@ -45,7 +46,7 @@ This document tracks the execution progress of all tasks defined in `MASTER_TASK
 
 | Task ID | Task Name | Status | Start Date | Notes |
 |---------|-----------|--------|------------|-------|
-| TASK-023 | Approve Verification Workflow | In Progress | 2026-03-23 | Implementing approval logic and asset status transition |
+| TASK-024 | Reject Verification Workflow | In Progress | 2026-03-23 | Implementing rejection logic and asset status transition |
 
 ---
 
@@ -57,7 +58,7 @@ This document tracks the execution progress of all tasks defined in `MASTER_TASK
 |---------|-----------|--------|--------------|
 | TASK-023 | Approve Verification Workflow | Pending | TASK-021 |
 | TASK-023 | Approve Verification Workflow | Pending | TASK-021 |
-| TASK-024 | Reject Verification Workflow | Pending | TASK-021 |
+| TASK-024 | Reject Verification Workflow | In Progress | 2026-03-23 | Implementing rejection logic and asset status transition |
 | TASK-025 | Verification Status Webhook | Pending | TASK-023 |
 | TASK-026 | Solidity AssetToken Contract | Pending | None |
 | TASK-027 | Solidity Marketplace Contract | Pending | TASK-026 |
