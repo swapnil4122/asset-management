@@ -6,9 +6,9 @@ This document tracks the execution progress of all tasks defined in `MASTER_TASK
 | Category | Count |
 |----------|-------|
 | **Total Tasks** | 50 |
-| **Completed** | 27 |
+| **Completed** | 28 |
 | **In Progress** | 1 |
-| **Pending** | 22 |
+| **Pending** | 21 |
 
 ---
 
@@ -61,8 +61,8 @@ This document tracks the execution progress of all tasks defined in `MASTER_TASK
 | TASK-025 | Verification Status Webhook | Completed | 2026-03-23 | Implemented mock notification service |
 | TASK-026 | Solidity AssetToken Contract | Completed | 2026-03-23 | ERC721 with URI storage already implemented |
 | TASK-027 | Solidity Marketplace Contract | Completed | 2026-03-23 | Marketplace with fee support already implemented |
-| TASK-028 | Hardhat Deployment Scripts | In Progress | 2026-03-23 | Checking/Implementing deployment scripts |
-| TASK-029 | Contract Event Listeners Backend | Pending | TASK-028 |
+| TASK-028 | Hardhat Deployment Scripts | Completed | 2026-03-23 | Implemented automated deployment with address persistence |
+| TASK-029 | Contract Event Listeners Backend | In Progress | 2026-03-23 | Implementing Ethers.js listeners for contract events |
 | TASK-030 | Tokenization Execution API | Pending | TASK-029 |
 | TASK-031 | Create Listing Endpoint | Pending | TASK-013 |
 | TASK-032 | Cancel Listing Endpoint | Pending | TASK-031 |
