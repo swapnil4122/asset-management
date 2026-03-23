@@ -50,8 +50,11 @@ const VerifierDashboard: React.FC = () => {
     try {
       await axios.post(`http://localhost:3000/api/verification/approve/${id}`);
       setRequests(requests.filter(r => r.id !== id));
-    } catch (error: any) {
-      alert(error.response?.data?.message || 'Approval failed');
+    } catch (error) {
+      const message = axios.isAxiosError(error) 
+        ? error.response?.data?.message 
+        : 'Approval failed';
+      alert(message || 'Approval failed');
     } finally {
       setProcessingId(null);
     }
@@ -67,8 +70,11 @@ const VerifierDashboard: React.FC = () => {
         rejectionReason: reason
       });
       setRequests(requests.filter(r => r.id !== id));
-    } catch (error: any) {
-      alert(error.response?.data?.message || 'Rejection failed');
+    } catch (error) {
+      const message = axios.isAxiosError(error) 
+        ? error.response?.data?.message 
+        : 'Rejection failed';
+      alert(message || 'Rejection failed');
     } finally {
       setProcessingId(null);
     }

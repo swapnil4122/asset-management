@@ -31,11 +31,11 @@ const Login: React.FC = () => {
       const { accessToken, user } = response.data;
       login(accessToken, user);
       navigate('/dashboard');
-    } catch (err: any) {
-      setError(
-        err.response?.data?.message ||
-          'Login failed. Please check your credentials.',
-      );
+    } catch (err) {
+      const message = axios.isAxiosError(err) 
+        ? err.response?.data?.message 
+        : 'Login failed. Please check your credentials.';
+      setError(message || 'Login failed. Please check your credentials.');
     } finally {
       setIsSubmitting(false);
     }

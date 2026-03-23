@@ -62,8 +62,11 @@ const AssetRegistration: React.FC = () => {
 
       setSuccess(true);
       setTimeout(() => navigate('/assets'), 2000);
-    } catch (err: any) {
-      setError(err.response?.data?.message || 'Failed to register asset.');
+    } catch (err) {
+      const message = axios.isAxiosError(err) 
+        ? err.response?.data?.message 
+        : 'Failed to register asset.';
+      setError(message || 'Failed to register asset.');
     } finally {
       setIsSubmitting(false);
     }

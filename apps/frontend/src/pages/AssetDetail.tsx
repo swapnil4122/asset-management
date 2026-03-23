@@ -68,8 +68,11 @@ const AssetDetail: React.FC = () => {
       setTxHash('0x' + Math.random().toString(16).slice(2, 10) + '...');
 
       setTimeout(() => navigate('/assets'), 3000);
-    } catch (error: any) {
-      alert(error.response?.data?.message || 'Purchase failed');
+    } catch (error) {
+      const message = axios.isAxiosError(error) 
+        ? error.response?.data?.message 
+        : 'Purchase failed';
+      alert(message || 'Purchase failed');
     } finally {
       setIsPurchasing(false);
     }

@@ -28,8 +28,9 @@ export const useWallet = () => {
       setProvider(browserProvider);
       setSigner(currentSigner);
       setChainId(Number(network.chainId));
-    } catch (err: any) {
-      setError(err.message || 'Failed to connect wallet');
+    } catch (err) {
+      const message = err instanceof Error ? err.message : 'Failed to connect wallet';
+      setError(message);
     } finally {
       setIsConnecting(false);
     }
@@ -44,8 +45,9 @@ export const useWallet = () => {
 
   useEffect(() => {
     if (window.ethereum) {
-      window.ethereum.on('accountsChanged', (accounts: string[]) => {
-        if (accounts.length > 0) {
+      window.ethereum.on('accountsChanged', (...args: unknown[]) => {
+        const accounts = args[0] as string[];
+        if (accounts && accounts.length > 0) {
           setAddress(accounts[0]);
         } else {
           disconnect();
@@ -73,6 +75,8 @@ export const useWallet = () => {
 
 declare global {
   interface Window {
-    ethereum: any;
+    ethereum?: ethers.Eip1193Provider & {
+      on: (event: string, callback: (...args: unknown[]) => void) => void;
+    };
   }
 }
