@@ -7,9 +7,11 @@ import {
   UseGuards,
   Request,
   Query,
+  Patch,
 } from '@nestjs/common';
 import { AssetService } from './asset.service';
 import { CreateAssetDto } from './dto/create-asset.dto';
+import { UpdateAssetDto } from './dto/update-asset.dto';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { OptionalJwtAuthGuard } from '../auth/guards/optional-jwt-auth.guard';
 import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
@@ -31,7 +33,10 @@ export class AssetController {
   @Get()
   @UseGuards(OptionalJwtAuthGuard)
   @ApiBearerAuth('JWT')
-  @ApiOperation({ summary: 'Get all assets (paginated). Returns owned if authenticated, else public.' })
+  @ApiOperation({
+    summary:
+      'Get all assets (paginated). Returns owned if authenticated, else public.',
+  })
   async findAll(@Query() pagination: PaginationDto, @Request() req: any) {
     return this.assetService.findAll(pagination, req.user?.id);
   }
@@ -40,5 +45,17 @@ export class AssetController {
   @ApiOperation({ summary: 'Get asset details by ID' })
   async findOne(@Param('id') id: string) {
     return this.assetService.findOne(id);
+  }
+
+  @Patch(':id')
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth('JWT')
+  @ApiOperation({ summary: 'Update asset details (owner only, pending only)' })
+  async update(
+    @Param('id') id: string,
+    @Body() updateAssetDto: UpdateAssetDto,
+    @Request() req: any,
+  ) {
+    return this.assetService.update(id, updateAssetDto, req.user.id);
   }
 }

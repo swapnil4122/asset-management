@@ -6,7 +6,7 @@ Track all branches created in the repository. When you create or merge a branch,
 
 | Branch Name | Parent Branch | Task ID | Feature Description | Status |
 |-------------|---------------|---------|---------------------|--------|
-| feature/asset-retrieval | develop | TASK-017 | Create Asset Retrieval Endpoints | Active |
+| feature/asset-update-endpoint | develop | TASK-018 | Create Asset Update Endpoint | Active |
 
 ## Merged Branches
 
@@ -16,6 +16,7 @@ Track all branches created in the repository. When you create or merge a branch,
 | feature/shared-ui-library | develop | TASK-004 | Setup Shared UI Library | Merged |
 | feature/database-migrations | develop | TASK-015 | Database Migrations Setup | Merged |
 | feature/asset-creation-endpoint | develop | TASK-016 | Create Asset Creation Endpoint | Merged |
+| feature/asset-retrieval | develop | TASK-017 | Create Asset Retrieval Endpoints | Merged |
 
 ## Closed/Abandoned Branches
 
