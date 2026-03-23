@@ -4,6 +4,7 @@ import Dashboard from './pages/Dashboard';
 import Marketplace from './pages/Marketplace';
 import Assets from './pages/Assets';
 import Login from './pages/Login';
+import AssetRegistration from './pages/CreateAsset';
 
 export const router = createBrowserRouter([
   {
@@ -17,6 +18,7 @@ export const router = createBrowserRouter([
       { index: true, element: <Navigate to="/dashboard" replace /> },
       { path: 'dashboard', element: <Dashboard /> },
       { path: 'assets', element: <Assets /> },
+      { path: 'assets/new', element: <AssetRegistration /> },
       { path: 'marketplace', element: <Marketplace /> },
     ],
   },

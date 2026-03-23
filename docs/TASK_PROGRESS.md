@@ -6,9 +6,9 @@ This document tracks the execution progress of all tasks defined in `MASTER_TASK
 | Category | Count |
 |----------|-------|
 | **Total Tasks** | 50 |
-| **Completed** | 36 |
+| **Completed** | 37 |
 | **In Progress** | 1 |
-| **Pending** | 13 |
+| **Pending** | 12 |
 
 ---
 
@@ -78,7 +78,7 @@ This document tracks the execution progress of all tasks defined in `MASTER_TASK
 | Task ID | Task Name | Status | Start Date | Notes |
 |---------|-----------|--------|------------|-------|
 | TASK-036 | React Router Setup | In Progress | 2026-03-23 | Configuring React Router and main routes |
-| TASK-039 | Login UI Page | In Progress | 2026-03-23 | Implementing Login page with API integration |
+| TASK-040 | Asset Registration Form | In Progress | 2026-03-23 | Implementing Asset Creation form and IPFS upload |
 
 ---
 

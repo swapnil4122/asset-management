@@ -30,6 +30,7 @@ Track all branches created in the repository. When you create or merge a branch,
 | feature/marketplace-purchase-api | develop | TASK-034 | Execute Purchase API | Merged |
 | feature/marketplace-escrow-api | develop | TASK-035 | Escrow Implementation | Merged |
 | feature/frontend-auth-pages | develop | TASK-038 | Wallet Connection Hook | Merged |
+| feature/frontend-auth-pages-v2 | develop | TASK-039 | Login UI Page | Merged |
 | feature/verification-rejection-workflow | develop | TASK-024 | Reject Verification Workflow | Merged |
 | feature/verification-status-notifications | develop | TASK-025 | Verification Status Webhook | Merged |
 
