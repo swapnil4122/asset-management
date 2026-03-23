@@ -71,4 +71,11 @@ export class VerificationService {
   async findByAssetId(assetId: string): Promise<VerificationRequest[]> {
     return this.verificationRepository.find({ where: { assetId } });
   }
+
+  async getPendingRequests(): Promise<VerificationRequest[]> {
+    return this.verificationRepository.find({
+      where: { status: VerificationStatus.PENDING },
+      relations: ['asset', 'requestedBy'],
+    });
+  }
 }

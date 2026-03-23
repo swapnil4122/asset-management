@@ -10,6 +10,9 @@ import {
 import { VerificationService } from './verification.service';
 import { CreateVerificationRequestDto } from './dto/create-verification-request.dto';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
+import { RolesGuard } from '../auth/guards/roles.guard';
+import { Roles } from '../auth/decorators/roles.decorator';
+import { UserRole } from '@asset-mgmt/shared-types';
 import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 
 @ApiTags('verification')
@@ -29,10 +32,19 @@ export class VerificationController {
   }
 
   @Get('requests')
-  @UseGuards(JwtAuthGuard)
-  @ApiOperation({ summary: 'Get all verification requests (Verifier/Admin only ideally)' })
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(UserRole.VERIFIER, UserRole.ADMIN)
+  @ApiOperation({ summary: 'Get all verification requests (Verifier/Admin only)' })
   async findAll() {
     return this.verificationService.findAll();
+  }
+
+  @Get('pending')
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(UserRole.VERIFIER, UserRole.ADMIN)
+  @ApiOperation({ summary: 'Get all pending verification requests (Verifier/Admin only)' })
+  async getPending() {
+    return this.verificationService.getPendingRequests();
   }
 
   @Get('asset/:assetId')
