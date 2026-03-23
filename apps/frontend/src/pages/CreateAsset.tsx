@@ -6,10 +6,17 @@ import {
   CheckCircle2,
   MapPin,
   DollarSign,
-  Tag,
   Type,
+  X,
+  FileText,
+  AlertCircle,
+  ChevronRight,
 } from 'lucide-react';
 import axios from 'axios';
+import Card from '../components/ui/Card';
+import Input from '../components/ui/Input';
+import Select from '../components/ui/Select';
+import Badge from '../components/ui/Badge';
 
 const AssetRegistration: React.FC = () => {
   const [name, setName] = useState('');
@@ -36,7 +43,6 @@ const AssetRegistration: React.FC = () => {
     setError(null);
 
     try {
-      // 1. Create Asset
       const assetResponse = await axios.post('http://localhost:3000/api/assets', {
         name,
         description,
@@ -47,7 +53,6 @@ const AssetRegistration: React.FC = () => {
 
       const assetId = assetResponse.data.id;
 
-      // 2. Upload Document/Image to IPFS
       if (file) {
         const formData = new FormData();
         formData.append('file', file);
@@ -74,158 +79,176 @@ const AssetRegistration: React.FC = () => {
 
   if (success) {
     return (
-      <div className="max-w-2xl mx-auto mt-20 text-center space-y-4">
-        <div className="flex justify-center">
-          <CheckCircle2 className="text-green-500 w-20 h-20" />
+      <div className="max-w-2xl mx-auto mt-20 text-center animate-in fade-in zoom-in duration-500">
+        <div className="w-24 h-24 bg-accent-green/10 rounded-full flex items-center justify-center mx-auto mb-6">
+          <CheckCircle2 className="text-accent-green w-12 h-12" />
         </div>
-        <h2 className="text-3xl font-bold text-slate-900">Registration Submitted!</h2>
-        <p className="text-slate-500">
-          Your asset has been registered and is pending verification. Redirecting...
+        <h2 className="text-4xl font-black text-text-primary tracking-tight">Success!</h2>
+        <p className="text-text-secondary mt-2 text-lg">
+          Your asset has been registered and sent for verification.
         </p>
+        <div className="mt-8 flex justify-center">
+           <div className="flex items-center space-x-2 text-accent-blue font-bold text-sm">
+              <Loader2 className="animate-spin" size={18} />
+              <span>Redirecting to portfolio...</span>
+           </div>
+        </div>
       </div>
     );
   }
 
   return (
-    <div className="max-w-3xl mx-auto space-y-8">
-      <header>
-        <h2 className="text-3xl font-extrabold text-slate-900 tracking-tight">
-          Register New Asset
-        </h2>
-        <p className="text-slate-500 mt-2">
-          Provide detailed information to begin the tokenization process.
-        </p>
+    <div className="max-w-4xl mx-auto space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+      <header className="flex justify-between items-start">
+        <div>
+          <h1 className="text-4xl font-black text-text-primary tracking-tight">Register Asset</h1>
+          <p className="text-text-secondary mt-1">Start the tokenization process for your real-world property.</p>
+        </div>
+        <Badge color="blue" className="mt-2 uppercase tracking-widest px-3 py-1">Step 1 of 2</Badge>
       </header>
 
-      <form
-        onSubmit={handleSubmit}
-        className="bg-white p-8 rounded-3xl shadow-xl border border-slate-100 space-y-6"
-      >
+      <form onSubmit={handleSubmit} className="space-y-6">
         {error && (
-          <div className="p-4 bg-red-50 border border-red-100 text-red-600 text-sm rounded-xl font-medium">
+          <div className="p-4 bg-accent-red/10 border border-accent-red/20 text-accent-red text-sm rounded-2xl font-bold flex items-center shadow-lg shadow-accent-red/5">
+            <AlertCircle size={20} className="mr-3 shrink-0" />
             {error}
           </div>
         )}
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div className="md:col-span-2">
-            <label className="block text-sm font-bold text-slate-700 mb-2 flex items-center">
-              <Type size={16} className="mr-2 text-indigo-500" /> Asset Name
-            </label>
-            <input
-              type="text"
-              required
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              className="block w-full px-4 py-3 border border-slate-200 rounded-xl bg-slate-50 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all"
-              placeholder="e.g. Sunset Heights Apartment"
-            />
-          </div>
-
-          <div className="md:col-span-2">
-            <label className="block text-sm font-bold text-slate-700 mb-2">
-              Description
-            </label>
-            <textarea
-              required
-              rows={4}
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
-              className="block w-full px-4 py-3 border border-slate-200 rounded-xl bg-slate-50 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all"
-              placeholder="Provide a comprehensive description of the asset..."
-            />
-          </div>
-
-          <div>
-            <label className="block text-sm font-bold text-slate-700 mb-2 flex items-center">
-              <Tag size={16} className="mr-2 text-indigo-500" /> Asset Type
-            </label>
-            <select
-              value={assetType}
-              onChange={(e) => setAssetType(e.target.value)}
-              className="block w-full px-4 py-3 border border-slate-200 rounded-xl bg-slate-50 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all"
-            >
-              <option value="REAL_ESTATE">Real Estate</option>
-              <option value="COMMODITY">Commodity</option>
-              <option value="FINE_ART">Fine Art</option>
-              <option value="VEHICLE">Vehicle</option>
-            </select>
-          </div>
-
-          <div>
-            <label className="block text-sm font-bold text-slate-700 mb-2 flex items-center">
-              <DollarSign size={16} className="mr-2 text-indigo-500" /> Valuation (USD)
-            </label>
-            <input
-              type="number"
-              required
-              value={valuation}
-              onChange={(e) => setValuation(e.target.value)}
-              className="block w-full px-4 py-3 border border-slate-200 rounded-xl bg-slate-50 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all"
-              placeholder="500000"
-            />
-          </div>
-
-          <div className="md:col-span-2">
-            <label className="block text-sm font-bold text-slate-700 mb-2 flex items-center">
-              <MapPin size={16} className="mr-2 text-indigo-500" /> Location / Address
-            </label>
-            <input
-              type="text"
-              required
-              value={location}
-              onChange={(e) => setLocation(e.target.value)}
-              className="block w-full px-4 py-3 border border-slate-200 rounded-xl bg-slate-50 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all"
-              placeholder="123 Luxury Way, Beverly Hills, CA"
-            />
-          </div>
-
-          <div className="md:col-span-2">
-            <label className="block text-sm font-bold text-slate-700 mb-2">
-              Authentication Documents / Images
-            </label>
-            <div className="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-slate-200 border-dashed rounded-2xl bg-slate-50 hover:bg-slate-100 transition-colors cursor-pointer group">
-              <div className="space-y-1 text-center">
-                <Upload
-                  className="mx-auto h-12 w-12 text-slate-400 group-hover:text-indigo-500 transition-colors"
-                  strokeWidth={1.5}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          {/* Main Info */}
+          <div className="lg:col-span-2 space-y-6">
+            <Card title="Asset Information" subtitle="Basic details about your property">
+              <div className="space-y-6">
+                <Input
+                  label="Asset Name"
+                  placeholder="e.g. Sunset Heights Apartment"
+                  required
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  icon={<Type size={18} />}
                 />
-                <div className="flex text-sm text-slate-600">
-                  <label className="relative cursor-pointer font-bold text-indigo-600 hover:text-indigo-500">
-                    <span>Upload a file</span>
-                    <input
-                      type="file"
-                      className="sr-only"
-                      onChange={handleFileChange}
-                    />
+                
+                <div className="space-y-1.5">
+                  <label className="text-xs font-bold text-text-secondary uppercase tracking-widest ml-1">
+                    Description
                   </label>
-                  <p className="pl-1">or drag and drop</p>
+                  <textarea
+                    required
+                    rows={5}
+                    value={description}
+                    onChange={(e) => setDescription(e.target.value)}
+                    placeholder="Provide a detailed description of the asset, its unique features, and history..."
+                    className="w-full bg-background-secondary border border-background-card rounded-xl py-3 px-4 text-sm text-text-primary placeholder:text-text-secondary/50 focus:outline-none focus:ring-2 focus:ring-accent-blue/50 focus:border-accent-blue/50 transition-all duration-200"
+                  />
                 </div>
-                <p className="text-xs text-slate-500">
-                  PNG, JPG, PDF up to 10MB
-                </p>
-                {file && (
-                  <p className="text-sm font-bold text-indigo-600 mt-2">
-                    Selected: {file.name}
-                  </p>
-                )}
-              </div>
-            </div>
-          </div>
-        </div>
 
-        <div className="pt-4">
-          <button
-            type="submit"
-            disabled={isSubmitting}
-            className="w-full flex justify-center py-4 px-4 border border-transparent text-lg font-extrabold rounded-2xl text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-all shadow-xl shadow-indigo-100 disabled:opacity-70"
-          >
-            {isSubmitting ? (
-              <Loader2 className="animate-spin mr-2" size={24} />
-            ) : (
-              'Submit for Verification'
-            )}
-          </button>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <Select
+                    label="Asset Type"
+                    value={assetType}
+                    onChange={(e) => setAssetType(e.target.value)}
+                    options={[
+                      { value: 'REAL_ESTATE', label: 'Real Estate' },
+                      { value: 'COMMODITY', label: 'Commodity' },
+                      { value: 'FINE_ART', label: 'Fine Art' },
+                      { value: 'VEHICLE', label: 'Vehicle' },
+                    ]}
+                  />
+                  <Input
+                    label="Valuation (USD)"
+                    type="number"
+                    placeholder="500,000"
+                    required
+                    value={valuation}
+                    onChange={(e) => setValuation(e.target.value)}
+                    icon={<DollarSign size={18} />}
+                  />
+                </div>
+
+                <Input
+                  label="Location / Address"
+                  placeholder="123 Luxury Way, Beverly Hills, CA"
+                  required
+                  value={location}
+                  onChange={(e) => setLocation(e.target.value)}
+                  icon={<MapPin size={18} />}
+                />
+              </div>
+            </Card>
+          </div>
+
+          {/* Verification Side */}
+          <div className="lg:col-span-1 space-y-6">
+            <Card title="Verification Documents" subtitle="Legal proofs and images">
+              <div className="space-y-6">
+                <div className="relative group">
+                  <input
+                    type="file"
+                    className="sr-only"
+                    id="file-upload"
+                    onChange={handleFileChange}
+                    accept="image/*,.pdf"
+                  />
+                  {!file ? (
+                    <label 
+                      htmlFor="file-upload" 
+                      className="flex flex-col items-center justify-center w-full h-48 border-2 border-dashed border-background-card hover:border-accent-blue/50 bg-background-primary/50 hover:bg-accent-blue/5 rounded-3xl transition-all cursor-pointer group-hover:scale-[1.02]"
+                    >
+                      <div className="w-12 h-12 bg-background-card rounded-2xl flex items-center justify-center mb-4 group-hover:bg-accent-blue/10 group-hover:text-accent-blue transition-colors">
+                        <Upload size={24} />
+                      </div>
+                      <p className="text-sm font-bold text-text-primary">Click to upload</p>
+                      <p className="text-[10px] text-text-secondary mt-1 uppercase tracking-wider font-bold">PNG, JPG or PDF</p>
+                    </label>
+                  ) : (
+                    <div className="relative p-4 border border-accent-blue/20 bg-accent-blue/5 rounded-3xl animate-in zoom-in-95 duration-200">
+                      <button 
+                        type="button"
+                        onClick={() => setFile(null)}
+                        className="absolute -top-2 -right-2 w-8 h-8 bg-background-secondary border border-background-card rounded-full flex items-center justify-center text-text-secondary hover:text-accent-red transition-all shadow-lg"
+                      >
+                        <X size={16} />
+                      </button>
+                      <div className="flex items-center">
+                        <div className="w-10 h-10 bg-accent-blue text-white rounded-xl flex items-center justify-center mr-4">
+                           <FileText size={20} />
+                        </div>
+                        <div className="flex-1 min-w-0">
+                           <p className="text-xs font-bold text-text-primary truncate">{file.name}</p>
+                           <p className="text-[10px] text-text-secondary mt-0.5">{(file.size / 1024 / 1024).toFixed(2)} MB</p>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+                </div>
+
+                <div className="bg-background-card/30 rounded-2xl p-4 border border-background-card">
+                   <div className="flex space-x-3">
+                      <AlertCircle size={18} className="text-accent-blue shrink-0" />
+                      <p className="text-[11px] leading-relaxed text-text-secondary">
+                        Documents will be stored securely on IPFS and used by verifiers to validate the asset.
+                      </p>
+                   </div>
+                </div>
+              </div>
+            </Card>
+
+            <button
+              type="submit"
+              disabled={isSubmitting}
+              className="w-full py-4 bg-accent-blue text-white rounded-2xl font-black text-lg hover:bg-accent-blue/90 shadow-2xl shadow-accent-blue/20 transition-all active:scale-95 disabled:opacity-70 disabled:active:scale-100 flex items-center justify-center group"
+            >
+              {isSubmitting ? (
+                <Loader2 className="animate-spin mr-2" size={24} />
+              ) : (
+                <>
+                  Submit Asset
+                  <ChevronRight size={20} className="ml-2 group-hover:translate-x-1 transition-transform" />
+                </>
+              )}
+            </button>
+          </div>
         </div>
       </form>
     </div>

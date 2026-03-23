@@ -1,75 +1,64 @@
-import React from 'react';
-import { Outlet, Link, useLocation } from 'react-router-dom';
-import { LayoutDashboard, ShoppingCart, Briefcase, User, ShieldAlert } from 'lucide-react';
+import React, { useState } from 'react';
+import { Outlet } from 'react-router-dom';
+import Sidebar from './Sidebar';
+import Navbar from './Navbar';
 import { useAuth } from '../../hooks/useAuth';
 
 const MainLayout: React.FC = () => {
-  const location = useLocation();
+  const [isCollapsed, setIsCollapsed] = useState(() => {
+    const saved = localStorage.getItem('sidebar-collapsed');
+    return saved ? JSON.parse(saved) : false;
+  });
+  const [isMobileOpen, setIsMobileOpen] = useState(false);
   const { user } = useAuth();
 
-  const navItems = [
-    {
-      name: 'Dashboard',
-      path: '/dashboard',
-      icon: <LayoutDashboard size={20} />,
-    },
-    { name: 'Assets', path: '/assets', icon: <Briefcase size={20} /> },
-    {
-      name: 'Marketplace',
-      path: '/marketplace',
-      icon: <ShoppingCart size={20} />,
-    },
-  ];
-
-  if (user?.role === 'VERIFIER' || user?.role === 'ADMIN') {
-    navItems.push({
-      name: 'Verifier Dashboard',
-      path: '/verifier',
-      icon: <ShieldAlert size={20} />,
-    });
-  }
+  const toggleCollapse = () => {
+    if (window.innerWidth < 1024) {
+      setIsMobileOpen(!isMobileOpen);
+    } else {
+      const newState = !isCollapsed;
+      setIsCollapsed(newState);
+      localStorage.setItem('sidebar-collapsed', JSON.stringify(newState));
+    }
+  };
 
   return (
-    <div className="flex h-screen bg-gray-50 text-slate-900 font-sans">
-      <aside className="w-64 bg-white border-r border-slate-200">
-        <div className="p-8">
-          <h1 className="text-2xl font-extrabold text-indigo-600 tracking-tight">
-            AssetMgmt
-          </h1>
-        </div>
-        <nav className="mt-4 px-4 space-y-1">
-          {navItems.map((item) => (
-            <Link
-              key={item.path}
-              to={item.path}
-              className={`flex items-center px-4 py-3 rounded-lg text-sm font-semibold transition-all duration-200 ${
-                location.pathname === item.path
-                  ? 'bg-indigo-50 text-indigo-600'
-                  : 'text-slate-600 hover:bg-slate-50 hover:text-indigo-600'
-              }`}
-            >
-              <span className="mr-3 opacity-80">{item.icon}</span>
-              {item.name}
-            </Link>
-          ))}
-        </nav>
-      </aside>
-      <main className="flex-1 overflow-auto bg-slate-50">
-        <header className="sticky top-0 z-10 bg-white/80 backdrop-blur-md border-b border-slate-200 px-8 py-4 flex justify-end">
-          <div className="flex items-center space-x-4">
-            <div className="text-right">
-              <p className="text-sm font-bold text-slate-800">Swapnil Singh</p>
-              <p className="text-xs text-slate-500">Administrator</p>
-            </div>
-            <div className="w-10 h-10 bg-indigo-100 text-indigo-600 rounded-full flex items-center justify-center border border-indigo-200 shadow-sm">
-              <User size={20} />
-            </div>
+    <div className="min-h-screen bg-background-primary text-text-primary overflow-x-hidden">
+      {/* Sidebar */}
+      <Sidebar 
+        isCollapsed={isCollapsed} 
+        isMobileOpen={isMobileOpen}
+        toggleCollapse={toggleCollapse} 
+        role={user?.role}
+      />
+
+      {/* Mobile Overlay */}
+      {isMobileOpen && (
+        <div 
+          className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 lg:hidden"
+          onClick={() => setIsMobileOpen(false)}
+        ></div>
+      )}
+
+      {/* Main Content Area */}
+      <div 
+        className={`transition-all duration-300 min-h-screen flex flex-col ${
+          isCollapsed ? 'lg:pl-20' : 'lg:pl-64'
+        } pl-0`}
+      >
+        <Navbar toggleMobileMenu={toggleCollapse} />
+        
+        <main className="flex-1 p-6 md:p-8 animate-in fade-in duration-700">
+          <div className="max-w-[1600px] mx-auto">
+            <Outlet />
           </div>
-        </header>
-        <div className="p-8 pb-16">
-          <Outlet />
-        </div>
-      </main>
+        </main>
+
+        {/* Footer info (optional, but good for premium feel) */}
+        <footer className="px-8 py-6 border-t border-background-card text-center text-text-secondary text-xs">
+          &copy; 2026 AssetMgmt Platform. Secured by Blockchain Technology.
+        </footer>
+      </div>
     </div>
   );
 };
