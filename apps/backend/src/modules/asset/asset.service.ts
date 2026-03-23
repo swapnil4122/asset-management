@@ -11,13 +11,27 @@ import { CreateAssetDto } from './dto/create-asset.dto';
 import { UpdateAssetDto } from './dto/update-asset.dto';
 import { AssetStatus } from '@asset-mgmt/shared-types';
 import { PaginationDto } from '../../common/dto/pagination.dto';
+import { IpfsService } from '../blockchain/service/ipfs.service';
 
 @Injectable()
 export class AssetService {
   constructor(
     @InjectRepository(Asset)
     private readonly assetRepository: Repository<Asset>,
+    private readonly ipfsService: IpfsService,
   ) {}
+
+  async uploadDocument(id: string, file: Express.Multer.File): Promise<Asset> {
+    const asset = await this.findOne(id);
+    const ipfsHash = await this.ipfsService.uploadFile(file);
+
+    asset.ipfsHash = ipfsHash;
+    // Also push to documents for history
+    if (!asset.documents) asset.documents = [];
+    asset.documents.push(ipfsHash);
+
+    return this.assetRepository.save(asset);
+  }
 
   async create(createAssetDto: CreateAssetDto, ownerId: string): Promise<Asset> {
     const asset = this.assetRepository.create({

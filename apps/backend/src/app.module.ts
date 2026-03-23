@@ -18,7 +18,7 @@ import { AuthModule } from './modules/auth/auth.module';
 import { AssetModule } from './modules/asset/asset.module';
 // import { VerificationModule } from './modules/verification/verification.module';
 // import { MarketplaceModule } from './modules/marketplace/marketplace.module';
-// import { BlockchainModule } from './modules/blockchain/blockchain.module';
+import { BlockchainModule } from './modules/blockchain/blockchain.module';
 // import { HealthModule } from './modules/health/health.module';
 
 
@@ -86,9 +86,8 @@ import { AssetModule } from './modules/asset/asset.module';
     UserModule,
     AuthModule,
     AssetModule,
+    BlockchainModule,
     // VerificationModule,
-    // MarketplaceModule,
-    // BlockchainModule,
     // HealthModule,
   ],
   controllers: [],

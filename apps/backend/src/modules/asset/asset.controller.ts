@@ -8,7 +8,10 @@ import {
   Request,
   Query,
   Patch,
+  UseInterceptors,
+  UploadedFile,
 } from '@nestjs/common';
+import { FileInterceptor } from '@nestjs/platform-express';
 import { AssetService } from './asset.service';
 import { CreateAssetDto } from './dto/create-asset.dto';
 import { UpdateAssetDto } from './dto/update-asset.dto';
@@ -57,5 +60,17 @@ export class AssetController {
     @Body() updateAssetDto: UpdateAssetDto,
   ) {
     return this.assetService.update(id, updateAssetDto);
+  }
+
+  @Post(':id/upload')
+  @UseGuards(JwtAuthGuard, IsOwnerGuard)
+  @UseInterceptors(FileInterceptor('file'))
+  @ApiBearerAuth('JWT')
+  @ApiOperation({ summary: 'Upload an asset document/image to IPFS' })
+  async uploadDocument(
+    @Param('id') id: string,
+    @UploadedFile() file: Express.Multer.File,
+  ) {
+    return this.assetService.uploadDocument(id, file);
   }
 }
