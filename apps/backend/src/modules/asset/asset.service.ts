@@ -12,6 +12,7 @@ import { UpdateAssetDto } from './dto/update-asset.dto';
 import { AssetStatus } from '@asset-mgmt/shared-types';
 import { PaginationDto } from '../../common/dto/pagination.dto';
 import { IpfsService } from '../blockchain/service/ipfs.service';
+import sharp from 'sharp';
 
 @Injectable()
 export class AssetService {
@@ -23,7 +24,31 @@ export class AssetService {
 
   async uploadDocument(id: string, file: Express.Multer.File): Promise<Asset> {
     const asset = await this.findOne(id);
-    const ipfsHash = await this.ipfsService.uploadFile(file);
+    let processedFile = file;
+
+    // Optimize images
+    if (file.mimetype.startsWith('image/')) {
+      try {
+        const buffer = await sharp(file.buffer)
+          .resize(1200, 1200, { fit: 'inside', withoutEnlargement: true })
+          .webp({ quality: 80 })
+          .toBuffer();
+
+        processedFile = {
+          ...file,
+          buffer,
+          originalname:
+            file.originalname.replace(/\.[^/.]+$/, '') + '.webp',
+          mimetype: 'image/webp',
+          size: buffer.length,
+        } as Express.Multer.File;
+      } catch (error) {
+        console.error('Image optimization failed', error);
+        // Fallback to original file
+      }
+    }
+
+    const ipfsHash = await this.ipfsService.uploadFile(processedFile);
 
     asset.ipfsHash = ipfsHash;
     // Also push to documents for history
