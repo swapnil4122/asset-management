@@ -5,7 +5,7 @@ import {
 } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
-import * as bcrypt from 'bcrypt';
+import * as bcrypt from 'bcryptjs';
 import { ethers } from 'ethers';
 import { v4 as uuid } from 'uuid';
 

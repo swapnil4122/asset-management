@@ -3,7 +3,7 @@ import {
   NotFoundException,
   ConflictException,
 } from '@nestjs/common';
-import * as bcrypt from 'bcrypt';
+import * as bcrypt from 'bcryptjs';
 
 import { User } from '../entity/user.entity';
 import { UserRepository } from '../repository/user.repository';
