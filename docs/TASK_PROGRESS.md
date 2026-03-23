@@ -6,9 +6,9 @@ This document tracks the execution progress of all tasks defined in `MASTER_TASK
 | Category | Count |
 |----------|-------|
 | **Total Tasks** | 50 |
-| **Completed** | 14 |
-| **In Progress** | 0 |
-| **Pending** | 36 |
+| **Completed** | 15 |
+| **In Progress** | 1 |
+| **Pending** | 34 |
 
 ---
 
@@ -30,6 +30,7 @@ This document tracks the execution progress of all tasks defined in `MASTER_TASK
 | TASK-012 | TypeORM Asset Entity | Completed | 2026-03-23 | Defined |
 | TASK-013 | TypeORM Listing Entity | Completed | 2026-03-23 | Defined |
 | TASK-014 | TypeORM VerificationRequest Entity | Completed | 2026-03-23 | Defined |
+| TASK-015 | Database Migrations Setup | Completed | 2026-03-23 | Configured data-source and scripts |
 
 ---
 
@@ -37,7 +38,7 @@ This document tracks the execution progress of all tasks defined in `MASTER_TASK
 
 | Task ID | Task Name | Status | Start Date | Notes |
 |---------|-----------|--------|------------|-------|
-| TASK-015 | Database Migrations Setup | In Progress | 2026-03-23 | Configuring TypeORM migrations |
+| TASK-016 | Create Asset Creation Endpoint | In Progress | 2026-03-23 | Implementing Asset Controller and Service |
 
 ---
 
@@ -47,7 +48,6 @@ This document tracks the execution progress of all tasks defined in `MASTER_TASK
 
 | Task ID | Task Name | Status | Dependencies |
 |---------|-----------|--------|--------------|
-| TASK-016 | Create Asset Creation Endpoint | Pending | TASK-012 |
 | TASK-017 | Create Asset Retrieval Endpoints | Pending | TASK-012 |
 | TASK-018 | Create Asset Update Endpoint | Pending | TASK-012 |
 | TASK-019 | Establish Asset Module Guards | Pending | TASK-016 |
