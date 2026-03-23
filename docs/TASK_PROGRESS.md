@@ -6,9 +6,9 @@ This document tracks the execution progress of all tasks defined in `MASTER_TASK
 | Category | Count |
 |----------|-------|
 | **Total Tasks** | 50 |
-| **Completed** | 21 |
+| **Completed** | 22 |
 | **In Progress** | 1 |
-| **Pending** | 28 |
+| **Pending** | 27 |
 
 ---
 
@@ -37,6 +37,7 @@ This document tracks the execution progress of all tasks defined in `MASTER_TASK
 | TASK-019 | Establish Asset Module Guards | Completed | 2026-03-23 | Implemented reusable IsOwnerGuard |
 | TASK-020 | Asset Image Upload (IPFS) | Completed | 2026-03-23 | Implemented Multer and IPFS service |
 | TASK-021 | Submit Verification Request API | Completed | 2026-03-23 | Implemented request creation and asset linkage |
+| TASK-022 | Verifier Dashboard API | Completed | 2026-03-23 | Implemented verifier-only views and status updates |
 
 ---
 
@@ -44,7 +45,7 @@ This document tracks the execution progress of all tasks defined in `MASTER_TASK
 
 | Task ID | Task Name | Status | Start Date | Notes |
 |---------|-----------|--------|------------|-------|
-| TASK-022 | Verifier Dashboard API | In Progress | 2026-03-23 | Implementing verifier-only views and status updates |
+| TASK-023 | Approve Verification Workflow | In Progress | 2026-03-23 | Implementing approval logic and asset status transition |
 
 ---
 

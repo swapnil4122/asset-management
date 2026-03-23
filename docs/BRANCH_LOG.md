@@ -6,7 +6,7 @@ Track all branches created in the repository. When you create or merge a branch,
 
 | Branch Name | Parent Branch | Task ID | Feature Description | Status |
 |-------------|---------------|---------|---------------------|--------|
-| feature/verifier-dashboard-api | develop | TASK-022 | Verifier Dashboard API | Active |
+| feature/verification-approval-workflow | develop | TASK-023 | Approve Verification Workflow | Active |
 
 ## Merged Branches
 
@@ -21,6 +21,7 @@ Track all branches created in the repository. When you create or merge a branch,
 | feature/asset-ownership-guard | develop | TASK-019 | Establish Asset Module Guards | Merged |
 | feature/asset-ipfs-upload | develop | TASK-020 | Asset Image Upload (IPFS) | Merged |
 | feature/verification-request-api | develop | TASK-021 | Submit Verification Request API | Merged |
+| feature/verifier-dashboard-api | develop | TASK-022 | Verifier Dashboard API | Merged |
 
 ## Closed/Abandoned Branches
 
