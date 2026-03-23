@@ -42,7 +42,7 @@ Track all branches created in the repository. When you create or merge a branch,
 
 | Branch Name | Parent Branch | Task ID | Feature Description | Status |
 |-------------|---------------|---------|---------------------|--------|
-| - | - | - | - | - |
+| feature/docker-setup | develop | TASK-045 | Docker Setup | Merged |
 
 ---
 
