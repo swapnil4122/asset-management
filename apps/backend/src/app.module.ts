@@ -19,6 +19,7 @@ import { AssetModule } from './modules/asset/asset.module';
 import { VerificationModule } from './modules/verification/verification.module';
 // import { MarketplaceModule } from './modules/marketplace/marketplace.module';
 import { BlockchainModule } from './modules/blockchain/blockchain.module';
+import { NotificationModule } from './modules/notification/notification.module';
 // import { HealthModule } from './modules/health/health.module';
 
 
@@ -88,6 +89,7 @@ import { BlockchainModule } from './modules/blockchain/blockchain.module';
     AssetModule,
     BlockchainModule,
     VerificationModule,
+    NotificationModule,
     // HealthModule,
   ],
   controllers: [],

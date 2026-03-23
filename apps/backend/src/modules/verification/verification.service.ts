@@ -12,6 +12,7 @@ import { CreateVerificationRequestDto } from './dto/create-verification-request.
 import { ApproveVerificationDto } from './dto/approve-verification.dto';
 import { RejectVerificationDto } from './dto/reject-verification.dto';
 import { AssetStatus, VerificationStatus } from '@asset-mgmt/shared-types';
+import { NotificationService } from '../notification/notification.service';
 
 @Injectable()
 export class VerificationService {
@@ -20,6 +21,7 @@ export class VerificationService {
     private readonly verificationRepository: Repository<VerificationRequest>,
     @InjectRepository(Asset)
     private readonly assetRepository: Repository<Asset>,
+    private readonly notificationService: NotificationService,
   ) {}
 
   async create(
@@ -116,7 +118,16 @@ export class VerificationService {
     asset.status = AssetStatus.VERIFIED;
     await this.assetRepository.save(asset);
 
-    return this.verificationRepository.save(request);
+    const savedRequest = await this.verificationRepository.save(request);
+
+    // Notify user
+    await this.notificationService.notify(
+      request.requestedById,
+      'Asset Verified',
+      `Your asset "${asset.name}" has been successfully verified.`,
+    );
+
+    return savedRequest;
   }
 
   async rejectRequest(
@@ -152,6 +163,15 @@ export class VerificationService {
     asset.status = AssetStatus.REJECTED;
     await this.assetRepository.save(asset);
 
-    return this.verificationRepository.save(request);
+    const savedRequest = await this.verificationRepository.save(request);
+
+    // Notify user
+    await this.notificationService.notify(
+      request.requestedById,
+      'Asset Verification Rejected',
+      `Your asset "${asset.name}" verification was rejected. Reason: ${rejectDto.reason}`,
+    );
+
+    return savedRequest;
   }
 }

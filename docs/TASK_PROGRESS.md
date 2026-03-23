@@ -6,9 +6,9 @@ This document tracks the execution progress of all tasks defined in `MASTER_TASK
 | Category | Count |
 |----------|-------|
 | **Total Tasks** | 50 |
-| **Completed** | 23 |
+| **Completed** | 24 |
 | **In Progress** | 1 |
-| **Pending** | 26 |
+| **Pending** | 25 |
 
 ---
 
@@ -56,10 +56,6 @@ This document tracks the execution progress of all tasks defined in `MASTER_TASK
 
 | Task ID | Task Name | Status | Dependencies |
 |---------|-----------|--------|--------------|
-| TASK-023 | Approve Verification Workflow | Pending | TASK-021 |
-| TASK-023 | Approve Verification Workflow | Pending | TASK-021 |
-| TASK-024 | Reject Verification Workflow | In Progress | 2026-03-23 | Implementing rejection logic and asset status transition |
-| TASK-025 | Verification Status Webhook | Pending | TASK-023 |
 | TASK-026 | Solidity AssetToken Contract | Pending | None |
 | TASK-027 | Solidity Marketplace Contract | Pending | TASK-026 |
 | TASK-028 | Hardhat Deployment Scripts | Pending | TASK-027 |
