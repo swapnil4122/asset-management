@@ -6,9 +6,9 @@ This document tracks the execution progress of all tasks defined in `MASTER_TASK
 | Category | Count |
 |----------|-------|
 | **Total Tasks** | 50 |
-| **Completed** | 35 |
+| **Completed** | 36 |
 | **In Progress** | 1 |
-| **Pending** | 14 |
+| **Pending** | 13 |
 
 ---
 
@@ -69,10 +69,26 @@ This document tracks the execution progress of all tasks defined in `MASTER_TASK
 | TASK-033 | View Active Listings API | Completed | 2026-03-23 | Implemented GET endpoints for listings |
 | TASK-034 | Execute Purchase API | Completed | 2026-03-23 | Implemented on-chain purchase and escrow logic |
 | TASK-035 | Escrow Implementation | Completed | 2026-03-23 | Implemented escrow deal creation and management |
+| TASK-038 | Wallet Connection Hook | Completed | 2026-03-23 | Implemented useWallet with Ethers.js |
+
+---
+
+## In Progress Tasks
+
+| Task ID | Task Name | Status | Start Date | Notes |
+|---------|-----------|--------|------------|-------|
 | TASK-036 | React Router Setup | In Progress | 2026-03-23 | Configuring React Router and main routes |
+| TASK-039 | Login UI Page | In Progress | 2026-03-23 | Implementing Login page with API integration |
+
+---
+
+## Pending Tasks
+
+*(Listed by ID. Refer to MASTER_TASKS.md for full details)*
+
+| Task ID | Task Name | Status | Dependencies |
+|---------|-----------|--------|--------------|
 | TASK-037 | Auth Provider Context | Pending | TASK-036 |
-| TASK-038 | Wallet Connection Hook | Pending | TASK-037 |
-| TASK-039 | Login UI Page | Pending | TASK-037 |
 | TASK-040 | Asset Registration Form | Pending | TASK-038 |
 | TASK-041 | Asset Dashboard View | Pending | TASK-040 |
 | TASK-042 | Marketplace Gallery | Pending | TASK-041 |

@@ -3,8 +3,13 @@ import MainLayout from './components/layout/MainLayout';
 import Dashboard from './pages/Dashboard';
 import Marketplace from './pages/Marketplace';
 import Assets from './pages/Assets';
+import Login from './pages/Login';
 
 export const router = createBrowserRouter([
+  {
+    path: '/login',
+    element: <Login />,
+  },
   {
     path: '/',
     element: <MainLayout />,
