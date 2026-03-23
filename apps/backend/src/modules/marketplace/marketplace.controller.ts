@@ -53,4 +53,20 @@ export class MarketplaceController {
   async purchase(@Request() req: any, @Param('id') id: string) {
     return this.marketplaceService.purchaseAsset(req.user.id, id);
   }
+
+  @Post('escrow/create/:id')
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
+  @ApiOperation({ summary: 'Create an escrow deal for a listing' })
+  async createEscrow(@Request() req: any, @Param('id') id: string) {
+    return this.marketplaceService.createEscrow(req.user.id, id);
+  }
+
+  @Post('escrow/release/:dealId')
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
+  @ApiOperation({ summary: 'Release funds from escrow (Seller/Admin)' })
+  async releaseEscrow(@Request() req: any, @Param('dealId') dealId: string) {
+    return this.marketplaceService.releaseEscrow(req.user.id, dealId);
+  }
 }

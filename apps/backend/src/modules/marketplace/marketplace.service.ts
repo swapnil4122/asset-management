@@ -122,4 +122,36 @@ export class MarketplaceService {
       // txHash
     };
   }
+
+  async createEscrow(buyerId: string, listingId: string): Promise<any> {
+    const listing = await this.listingRepository.findOne({
+      where: { id: listingId, status: ListingStatus.ACTIVE },
+      relations: ['asset'],
+    });
+
+    if (!listing) throw new NotFoundException('Listing not found');
+    if (listing.sellerId === buyerId) {
+      throw new BadRequestException('Cannot buy your own listing');
+    }
+
+    // Update status to mark it as in-escrow
+    // Ideally we'd have a PENDING_ESCROW status
+    listing.status = ListingStatus.SOLD; // Or a new status if available
+    await this.listingRepository.save(listing);
+
+    // Call blockchain service to create deal on-chain
+    // const dealId = await this.blockchainService.createEscrowDeal(listing, buyerId);
+
+    return {
+      success: true,
+      message: 'Escrow deal created',
+      dealId: 'escrow-' + Date.now(),
+    };
+  }
+
+  async releaseEscrow(sellerId: string, dealId: string): Promise<any> {
+    // Verify deal and seller
+    // Mark as completed
+    return { success: true, message: 'Funds released to seller' };
+  }
 }

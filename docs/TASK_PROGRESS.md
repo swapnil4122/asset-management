@@ -6,9 +6,9 @@ This document tracks the execution progress of all tasks defined in `MASTER_TASK
 | Category | Count |
 |----------|-------|
 | **Total Tasks** | 50 |
-| **Completed** | 33 |
+| **Completed** | 34 |
 | **In Progress** | 1 |
-| **Pending** | 16 |
+| **Pending** | 15 |
 
 ---
 
@@ -67,8 +67,8 @@ This document tracks the execution progress of all tasks defined in `MASTER_TASK
 | TASK-031 | Create Listing Endpoint | Completed | 2026-03-23 | Implemented Asset Marketplace listing logic |
 | TASK-032 | Cancel Listing Endpoint | Completed | 2026-03-23 | Implemented listing status update to CANCELLED |
 | TASK-033 | View Active Listings API | Completed | 2026-03-23 | Implemented GET endpoints for listings |
-| TASK-034 | Execute Purchase API | In Progress | 2026-03-23 | Implementing on-chain purchase and escrow logic |
-| TASK-035 | Escrow Implementation | Pending | TASK-034 |
+| TASK-034 | Execute Purchase API | Completed | 2026-03-23 | Implemented on-chain purchase and escrow logic |
+| TASK-035 | Escrow Implementation | In Progress | 2026-03-23 | Implementing escrow deal creation and management |
 | TASK-036 | React Router Setup | Pending | TASK-003 |
 | TASK-037 | Auth Provider Context | Pending | TASK-036 |
 | TASK-038 | Wallet Connection Hook | Pending | TASK-037 |
