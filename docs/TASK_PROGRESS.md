@@ -6,9 +6,9 @@ This document tracks the execution progress of all tasks defined in `MASTER_TASK
 | Category | Count |
 |----------|-------|
 | **Total Tasks** | 50 |
-| **Completed** | 39 |
-| **In Progress** | 1 |
-| **Pending** | 10 |
+| **Completed** | 40 |
+| **In Progress** | 2 |
+| **Pending** | 8 |
 
 ---
 
@@ -89,9 +89,6 @@ This document tracks the execution progress of all tasks defined in `MASTER_TASK
 | Task ID | Task Name | Status | Dependencies |
 |---------|-----------|--------|--------------|
 | TASK-037 | Auth Provider Context | Pending | TASK-036 |
-| TASK-044 | Verifier Role UI | Pending | TASK-039 |
-| TASK-045 | Dockerfile Generation (Backend) | Pending | TASK-002 |
-| TASK-046 | Dockerfile Generation (Frontend) | Pending | TASK-003 |
 | TASK-047 | CI/CD GitHub Actions Setup | Pending | TASK-045 |
 | TASK-048 | E2E Testing Framework Setup | Pending | TASK-047 |
 | TASK-049 | Redis Query Caching in Backend | Pending | TASK-007,017 |
