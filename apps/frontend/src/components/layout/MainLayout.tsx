@@ -1,9 +1,11 @@
 import React from 'react';
 import { Outlet, Link, useLocation } from 'react-router-dom';
-import { LayoutDashboard, ShoppingCart, Briefcase, User } from 'lucide-react';
+import { LayoutDashboard, ShoppingCart, Briefcase, User, ShieldAlert } from 'lucide-react';
+import { useAuth } from '../../hooks/useAuth';
 
 const MainLayout: React.FC = () => {
   const location = useLocation();
+  const { user } = useAuth();
 
   const navItems = [
     {
@@ -18,6 +20,14 @@ const MainLayout: React.FC = () => {
       icon: <ShoppingCart size={20} />,
     },
   ];
+
+  if (user?.role === 'VERIFIER' || user?.role === 'ADMIN') {
+    navItems.push({
+      name: 'Verifier Dashboard',
+      path: '/verifier',
+      icon: <ShieldAlert size={20} />,
+    });
+  }
 
   return (
     <div className="flex h-screen bg-gray-50 text-slate-900 font-sans">

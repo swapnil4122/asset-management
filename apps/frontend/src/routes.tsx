@@ -6,6 +6,7 @@ import Assets from './pages/Assets';
 import Login from './pages/Login';
 import AssetRegistration from './pages/CreateAsset';
 import AssetDetail from './pages/AssetDetail';
+import VerifierDashboard from './pages/VerifierDashboard';
 
 export const router = createBrowserRouter([
   {
@@ -22,6 +23,7 @@ export const router = createBrowserRouter([
       { path: 'assets/new', element: <AssetRegistration /> },
       { path: 'marketplace', element: <Marketplace /> },
       { path: 'marketplace/:id', element: <AssetDetail /> },
+      { path: 'verifier', element: <VerifierDashboard /> },
     ],
   },
 ]);
