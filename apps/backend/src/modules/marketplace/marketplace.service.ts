@@ -149,7 +149,7 @@ export class MarketplaceService {
     };
   }
 
-  async releaseEscrow(sellerId: string, dealId: string): Promise<any> {
+  async releaseEscrow(_sellerId: string, _dealId: string): Promise<any> {
     // Verify deal and seller
     // Mark as completed
     return { success: true, message: 'Funds released to seller' };

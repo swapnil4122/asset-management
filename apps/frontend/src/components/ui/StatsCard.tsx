@@ -54,31 +54,33 @@ const StatsCard: React.FC<StatsCardProps> = ({
   const styles = colorMap[color];
 
   return (
-    <Card className={`border-l-4 ${styles.border}`}>
-      <div className="flex justify-between items-start">
-        <div className={`p-2.5 ${styles.bg} ${styles.text} rounded-xl`}>
-          <Icon size={24} />
+    <Card className="!p-0 overflow-hidden border-none shadow-xl">
+      <div className="p-6 bg-[#1F2937] h-full flex flex-col justify-between">
+        <div className="flex justify-between items-start">
+          <div className={`p-3 ${styles.bg} ${styles.text} rounded-xl shadow-inner`}>
+            <Icon size={24} />
+          </div>
+          {trend && (
+            <span className={`flex items-center text-[10px] font-black uppercase tracking-widest ${
+              trend.type === 'up' ? 'text-[#10B981]' : 
+              trend.type === 'down' ? 'text-[#EF4444]' : 'text-[#9CA3AF]'
+            }`}>
+              {trend.type === 'up' && <ArrowUpRight size={14} className="mr-1" />}
+              {trend.type === 'down' && <ArrowDownRight size={14} className="mr-1" />}
+              {trend.type === 'neutral' && <Minus size={14} className="mr-1" />}
+              {trend.value}
+            </span>
+          )}
         </div>
-        {trend && (
-          <span className={`flex items-center text-xs font-bold ${
-            trend.type === 'up' ? 'text-accent-green' : 
-            trend.type === 'down' ? 'text-accent-red' : 'text-text-secondary'
-          }`}>
-            {trend.type === 'up' && <ArrowUpRight size={14} className="mr-1" />}
-            {trend.type === 'down' && <ArrowDownRight size={14} className="mr-1" />}
-            {trend.type === 'neutral' && <Minus size={14} className="mr-1" />}
-            {trend.value}
-          </span>
-        )}
-      </div>
-      <div className="mt-4">
-        <p className="text-text-secondary text-[11px] font-bold uppercase tracking-wider">{title}</p>
-        <h2 className="text-3xl font-black text-text-primary mt-1 tracking-tight">{value}</h2>
-        {description && (
-          <p className="text-xs text-text-secondary mt-2 leading-relaxed">
-            {description}
-          </p>
-        )}
+        <div className="mt-8">
+          <p className="text-[#9CA3AF] text-[10px] font-black uppercase tracking-widest leading-none mb-2">{title}</p>
+          <h2 className="text-3xl font-black text-[#F9FAFB] tracking-tighter leading-none">{value}</h2>
+          {description && (
+            <p className="text-[11px] text-[#9CA3AF] mt-4 font-medium leading-relaxed opacity-60">
+              {description}
+            </p>
+          )}
+        </div>
       </div>
     </Card>
   );

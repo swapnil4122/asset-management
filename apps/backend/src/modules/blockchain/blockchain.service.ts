@@ -59,7 +59,7 @@ export class BlockchainService implements OnModuleInit {
 
       assetTokenContract.on(
         'AssetMinted',
-        async (tokenId, owner, assetId, tokenURI) => {
+        async (tokenId, owner, assetId, _tokenURI) => {
           this.logger.log(
             `AssetMinted Event Detected: tokenId=${tokenId}, assetId=${assetId}`,
           );

@@ -13,7 +13,7 @@ const Navbar: React.FC<NavbarProps> = ({ toggleMobileMenu }) => {
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
 
   return (
-    <header className="h-16 sticky top-0 bg-background-primary/80 backdrop-blur-md border-b border-background-card z-40 px-6 flex items-center justify-between">
+    <header className="h-16 sticky top-0 bg-[#0B0F19]/80 backdrop-blur-md border-b border-[#1F2937] z-40 px-6 flex items-center justify-between w-full">
       {/* Mobile Menu Toggle */}
       <button 
         onClick={toggleMobileMenu}

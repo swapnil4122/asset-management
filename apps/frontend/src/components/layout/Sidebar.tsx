@@ -14,26 +14,19 @@ interface SidebarProps {
   isCollapsed: boolean;
   isMobileOpen: boolean;
   toggleCollapse: () => void;
-  role?: string;
 }
 
-const Sidebar: React.FC<SidebarProps> = ({ isCollapsed, isMobileOpen, toggleCollapse, role }) => {
+const Sidebar: React.FC<SidebarProps> = ({ isCollapsed, isMobileOpen, toggleCollapse }) => {
   const navItems = [
     { name: 'Dashboard', path: '/dashboard', icon: LayoutDashboard },
     { name: 'Assets', path: '/assets', icon: Briefcase },
     { name: 'Marketplace', path: '/marketplace', icon: ShoppingBag },
   ];
 
-  if (role === 'VERIFIER' || role === 'ADMIN') {
-    navItems.push({ name: 'Verifier', path: '/verifier', icon: ShieldCheck });
-  }
-
   return (
     <aside 
-      className={`fixed left-0 top-0 h-full bg-background-secondary border-r border-background-card transition-all duration-300 z-[60] flex flex-col ${
-        isCollapsed ? 'lg:w-20' : 'lg:w-64'
-      } ${
-        isMobileOpen ? 'w-64 translate-x-0' : 'w-64 -translate-x-full lg:translate-x-0'
+      className={`fixed left-0 top-0 h-full bg-[#111827] border-r border-[#1F2937] transition-all duration-300 z-[60] flex flex-col ${
+        isMobileOpen ? 'w-[240px] translate-x-0' : 'w-[240px] -translate-x-full lg:translate-x-0'
       }`}
     >
       {/* Logo Section */}
