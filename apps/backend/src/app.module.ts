@@ -16,7 +16,7 @@ import { validate } from './config/env.validation';
 import { UserModule } from './modules/user/user.module';
 import { AuthModule } from './modules/auth/auth.module';
 import { AssetModule } from './modules/asset/asset.module';
-// import { VerificationModule } from './modules/verification/verification.module';
+import { VerificationModule } from './modules/verification/verification.module';
 // import { MarketplaceModule } from './modules/marketplace/marketplace.module';
 import { BlockchainModule } from './modules/blockchain/blockchain.module';
 // import { HealthModule } from './modules/health/health.module';
@@ -87,7 +87,7 @@ import { BlockchainModule } from './modules/blockchain/blockchain.module';
     AuthModule,
     AssetModule,
     BlockchainModule,
-    // VerificationModule,
+    VerificationModule,
     // HealthModule,
   ],
   controllers: [],

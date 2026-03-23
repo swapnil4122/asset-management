@@ -6,7 +6,7 @@ Track all branches created in the repository. When you create or merge a branch,
 
 | Branch Name | Parent Branch | Task ID | Feature Description | Status |
 |-------------|---------------|---------|---------------------|--------|
-| feature/asset-ipfs-upload | develop | TASK-020 | Asset Image Upload (IPFS) | Active |
+| feature/verification-request-api| develop | TASK-021 | Submit Verification Request API | Active |
 
 ## Merged Branches
 
@@ -19,6 +19,7 @@ Track all branches created in the repository. When you create or merge a branch,
 | feature/asset-retrieval | develop | TASK-017 | Create Asset Retrieval Endpoints | Merged |
 | feature/asset-update-endpoint | develop | TASK-018 | Create Asset Update Endpoint | Merged |
 | feature/asset-ownership-guard | develop | TASK-019 | Establish Asset Module Guards | Merged |
+| feature/asset-ipfs-upload | develop | TASK-020 | Asset Image Upload (IPFS) | Merged |
 
 ## Closed/Abandoned Branches
 

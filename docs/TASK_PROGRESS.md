@@ -6,9 +6,9 @@ This document tracks the execution progress of all tasks defined in `MASTER_TASK
 | Category | Count |
 |----------|-------|
 | **Total Tasks** | 50 |
-| **Completed** | 19 |
+| **Completed** | 20 |
 | **In Progress** | 1 |
-| **Pending** | 30 |
+| **Pending** | 29 |
 
 ---
 
@@ -35,6 +35,7 @@ This document tracks the execution progress of all tasks defined in `MASTER_TASK
 | TASK-017 | Create Asset Retrieval Endpoints | Completed | 2026-03-23 | Implemented pagination and public/private views |
 | TASK-018 | Create Asset Update Endpoint | Completed | 2026-03-23 | Implemented ownership-secured PATCH endpoint |
 | TASK-019 | Establish Asset Module Guards | Completed | 2026-03-23 | Implemented reusable IsOwnerGuard |
+| TASK-020 | Asset Image Upload (IPFS) | Completed | 2026-03-23 | Implemented Multer and IPFS service |
 
 ---
 
@@ -42,7 +43,7 @@ This document tracks the execution progress of all tasks defined in `MASTER_TASK
 
 | Task ID | Task Name | Status | Start Date | Notes |
 |---------|-----------|--------|------------|-------|
-| TASK-020 | Asset Image Upload (IPFS) | In Progress | 2026-03-23 | Implementing Multer and IPFS service |
+| TASK-021 | Submit Verification Request API | In Progress | 2026-03-23 | Implementing request creation and asset linkage |
 
 ---
 
@@ -52,7 +53,6 @@ This document tracks the execution progress of all tasks defined in `MASTER_TASK
 
 | Task ID | Task Name | Status | Dependencies |
 |---------|-----------|--------|--------------|
-| TASK-021 | Submit Verification Request API | Pending | TASK-014 |
 | TASK-022 | Verifier Dashboard API | Pending | TASK-021 |
 | TASK-023 | Approve Verification Workflow | Pending | TASK-021 |
 | TASK-024 | Reject Verification Workflow | Pending | TASK-021 |
