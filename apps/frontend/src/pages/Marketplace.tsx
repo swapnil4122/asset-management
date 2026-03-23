@@ -8,6 +8,7 @@ import {
   CircleDollarSign,
 } from 'lucide-react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 interface Listing {
   id: string;
@@ -25,6 +26,7 @@ interface Listing {
 const Marketplace: React.FC = () => {
   const [listings, setListings] = useState<Listing[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchListings = async () => {
@@ -98,6 +100,7 @@ const Marketplace: React.FC = () => {
           {listings.map((listing) => (
             <div
               key={listing.id}
+              onClick={() => navigate(`/marketplace/${listing.id}`)}
               className="group bg-white rounded-3xl border border-slate-100 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 overflow-hidden cursor-pointer"
             >
               <div className="relative h-56 bg-slate-100">

@@ -32,6 +32,7 @@ Track all branches created in the repository. When you create or merge a branch,
 | feature/frontend-auth-pages | develop | TASK-038 | Wallet Connection Hook | Merged |
 | feature/frontend-auth-pages-v2 | develop | TASK-039 | Login UI Page | Merged |
 | feature/frontend-asset-dashboard | develop | TASK-041 | Asset Dashboard View | Merged |
+| feature/frontend-marketplace-gallery | develop | TASK-042 | Marketplace Gallery | Merged |
 | feature/verification-rejection-workflow | develop | TASK-024 | Reject Verification Workflow | Merged |
 | feature/verification-status-notifications | develop | TASK-025 | Verification Status Webhook | Merged |
 

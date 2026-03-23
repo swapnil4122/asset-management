@@ -5,6 +5,7 @@ import Marketplace from './pages/Marketplace';
 import Assets from './pages/Assets';
 import Login from './pages/Login';
 import AssetRegistration from './pages/CreateAsset';
+import AssetDetail from './pages/AssetDetail';
 
 export const router = createBrowserRouter([
   {
@@ -20,6 +21,7 @@ export const router = createBrowserRouter([
       { path: 'assets', element: <Assets /> },
       { path: 'assets/new', element: <AssetRegistration /> },
       { path: 'marketplace', element: <Marketplace /> },
+      { path: 'marketplace/:id', element: <AssetDetail /> },
     ],
   },
 ]);
