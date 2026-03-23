@@ -1,0 +1,47 @@
+{
+  "name": "asset-management-platform",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Enterprise-grade Asset Management Platform with blockchain tokenization",
+  "scripts": {
+    "dev:backend": "pnpm --filter @asset-mgmt/backend dev",
+    "dev:frontend": "pnpm --filter @asset-mgmt/frontend dev",
+    "dev": "concurrently \"pnpm dev:backend\" \"pnpm dev:frontend\"",
+    "build:backend": "pnpm --filter @asset-mgmt/backend build",
+    "build:frontend": "pnpm --filter @asset-mgmt/frontend build",
+    "build": "pnpm --filter @asset-mgmt/shared-types build && pnpm --filter @asset-mgmt/config build && pnpm --filter @asset-mgmt/backend build",
+    "test:backend": "pnpm --filter @asset-mgmt/backend test",
+    "test:frontend": "pnpm --filter @asset-mgmt/frontend test",
+    "test": "pnpm run -r test",
+    "lint": "pnpm run -r lint",
+    "format": "pnpm run -r format",
+    "contracts:compile": "pnpm --filter @asset-mgmt/contracts compile",
+    "contracts:deploy": "pnpm --filter @asset-mgmt/contracts deploy",
+    "docker:up": "docker-compose -f infrastructure/docker/docker-compose.yml up -d",
+    "docker:down": "docker-compose -f infrastructure/docker/docker-compose.yml down",
+    "prepare": "husky install"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2",
+    "husky": "^9.0.11",
+    "lint-staged": "^15.2.2",
+    "prettier": "^3.2.5",
+    "typescript": "^5.4.5"
+  },
+  "lint-staged": {
+    "**/*.{ts,tsx,js,jsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "**/*.{json,md,yml,yaml}": [
+      "prettier --write"
+    ]
+  },
+  "engines": {
+    "node": ">=20.0.0",
+    "pnpm": ">=9.0.0"
+  },
+  "dependencies": {
+    "dotenv": "^17.3.1"
+  }
+}
