@@ -1,4 +1,11 @@
-import { Injectable, OnModuleInit, Logger } from '@nestjs/common';
+import {
+  Injectable,
+  OnModuleInit,
+  Logger,
+  NotFoundException,
+  BadRequestException,
+  InternalServerErrorException,
+} from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
@@ -70,6 +77,56 @@ export class BlockchainService implements OnModuleInit {
       );
     } catch (error: any) {
       this.logger.error(`Error setting up listeners: ${error.message}`);
+    }
+  }
+
+  async mintAsset(assetId: string): Promise<string> {
+    const asset = await this.assetRepository.findOne({ where: { id: assetId } });
+    if (!asset) throw new NotFoundException('Asset not found');
+    if (asset.status !== AssetStatus.VERIFIED) {
+      throw new BadRequestException(
+        'Asset must be VERIFIED before tokenization',
+      );
+    }
+
+    const assetTokenAddress = this.configService.get<string>(
+      'ASSET_TOKEN_ADDRESS',
+    );
+    const privateKey = this.configService.get<string>('ADMIN_PRIVATE_KEY');
+
+    if (!assetTokenAddress || !privateKey) {
+      throw new InternalServerErrorException('Blockchain configuration missing');
+    }
+
+    try {
+      const wallet = new ethers.Wallet(privateKey, this.provider);
+      const abi = [
+        'function mint(address to, string tokenURI, string assetId, string assetType, uint256 valuationUSD) external returns (uint256)',
+      ];
+      const contract = new ethers.Contract(assetTokenAddress, abi, wallet);
+
+      // Use ipfsHash from entity or metadata
+      let ipfsHash = asset.ipfsHash;
+      if (!ipfsHash && asset.metadata && typeof asset.metadata === 'object') {
+        ipfsHash = (asset.metadata as any).ipfsHash;
+      }
+
+      const tokenURI = ipfsHash ? `ipfs://${ipfsHash}` : `ipfs://mock-${assetId}`;
+
+      this.logger.log(`Minting NFT for asset ${assetId}...`);
+      const tx = await contract.mint(
+        asset.ownerId,
+        tokenURI,
+        asset.id,
+        asset.assetType,
+        Math.round(asset.valuationUSD * 100), // to cents
+      );
+
+      this.logger.log(`Mint transaction submitted: ${tx.hash}`);
+      return tx.hash;
+    } catch (error: any) {
+      this.logger.error(`Minting failed: ${error.message}`);
+      throw new InternalServerErrorException(`Minting failed: ${error.message}`);
     }
   }
 }
