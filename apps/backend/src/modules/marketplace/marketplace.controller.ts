@@ -22,7 +22,7 @@ export class MarketplaceController {
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()
   @ApiOperation({ summary: 'Create a new asset listing' })
-  async create(@Request() req: any, @Body() createDto: CreateListingDto) {
+  async create(@Request() req: { user: { id: string } }, @Body() createDto: CreateListingDto) {
     return this.marketplaceService.createListing(req.user.id, createDto);
   }
 
@@ -42,7 +42,7 @@ export class MarketplaceController {
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()
   @ApiOperation({ summary: 'Cancel an active listing' })
-  async cancel(@Request() req: any, @Param('id') id: string) {
+  async cancel(@Request() req: { user: { id: string } }, @Param('id') id: string) {
     return this.marketplaceService.cancelListing(req.user.id, id);
   }
 
@@ -50,7 +50,7 @@ export class MarketplaceController {
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()
   @ApiOperation({ summary: 'Purchase a listed asset' })
-  async purchase(@Request() req: any, @Param('id') id: string) {
+  async purchase(@Request() req: { user: { id: string } }, @Param('id') id: string) {
     return this.marketplaceService.purchaseAsset(req.user.id, id);
   }
 
@@ -58,7 +58,7 @@ export class MarketplaceController {
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()
   @ApiOperation({ summary: 'Create an escrow deal for a listing' })
-  async createEscrow(@Request() req: any, @Param('id') id: string) {
+  async createEscrow(@Request() req: { user: { id: string } }, @Param('id') id: string) {
     return this.marketplaceService.createEscrow(req.user.id, id);
   }
 
@@ -66,7 +66,7 @@ export class MarketplaceController {
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()
   @ApiOperation({ summary: 'Release funds from escrow (Seller/Admin)' })
-  async releaseEscrow(@Request() req: any, @Param('dealId') dealId: string) {
+  async releaseEscrow(@Request() req: { user: { id: string } }, @Param('dealId') dealId: string) {
     return this.marketplaceService.releaseEscrow(req.user.id, dealId);
   }
 }

@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import { QueryDeepPartialEntity } from 'typeorm/query-builder/QueryPartialEntity';
 
 import { User } from '../entity/user.entity';
 
@@ -41,7 +42,7 @@ export class UserRepository {
   }
 
   async update(id: string, data: Partial<User>): Promise<User | null> {
-    await this.repo.update(id, data as any);
+    await this.repo.update(id, data as QueryDeepPartialEntity<User>);
     return this.findById(id);
   }
 

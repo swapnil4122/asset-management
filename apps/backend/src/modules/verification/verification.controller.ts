@@ -28,7 +28,7 @@ export class VerificationController {
   @ApiOperation({ summary: 'Submit a new verification request' })
   async create(
     @Body() createDto: CreateVerificationRequestDto,
-    @Request() req: any,
+    @Request() req: { user: { id: string } },
   ) {
     return this.verificationService.create(createDto, req.user.id);
   }
@@ -65,7 +65,7 @@ export class VerificationController {
   async approve(
     @Param('id') id: string,
     @Body() approveDto: ApproveVerificationDto,
-    @Request() req: any,
+    @Request() req: { user: { id: string } },
   ) {
     return this.verificationService.approveRequest(id, req.user.id, approveDto);
   }
@@ -79,7 +79,7 @@ export class VerificationController {
   async reject(
     @Param('id') id: string,
     @Body() rejectDto: RejectVerificationDto,
-    @Request() req: any,
+    @Request() req: { user: { id: string } },
   ) {
     return this.verificationService.rejectRequest(id, req.user.id, rejectDto);
   }

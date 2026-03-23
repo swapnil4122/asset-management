@@ -2,257 +2,271 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
   Upload,
-  Loader2,
-  CheckCircle2,
-  MapPin,
+  Info,
   DollarSign,
-  Type,
-  X,
+  MapPin,
+  Building,
+  CheckCircle2,
   FileText,
-  AlertCircle,
   ChevronRight,
+  ChevronLeft,
+  ShieldCheck,
+  ArrowRight,
+  Plus,
+  TrendingUp,
 } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import type { Variants } from 'framer-motion';
 import axios from 'axios';
 import Card from '../components/ui/Card';
 import Input from '../components/ui/Input';
 import Select from '../components/ui/Select';
-import Badge from '../components/ui/Badge';
 
-const AssetRegistration: React.FC = () => {
-  const [name, setName] = useState('');
-  const [description, setDescription] = useState('');
-  const [assetType, setAssetType] = useState('REAL_ESTATE');
-  const [valuation, setValuation] = useState('');
-  const [location, setLocation] = useState('');
-  const [file, setFile] = useState<File | null>(null);
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-  const [success, setSuccess] = useState(false);
-
+const CreateAsset: React.FC = () => {
   const navigate = useNavigate();
-
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files && e.target.files[0]) {
-      setFile(e.target.files[0]);
-    }
-  };
+  const [step, setStep] = useState(1);
+  const [isLoading, setIsLoading] = useState(false);
+  const [formData, setFormData] = useState({
+    name: '',
+    assetType: 'REAL_ESTATE',
+    valuationUSD: '',
+    location: '',
+    metadata: {
+      description: '',
+      area: '',
+      yearBuilt: '',
+    },
+  });
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setIsSubmitting(true);
-    setError(null);
-
+    setIsLoading(true);
     try {
-      const assetResponse = await axios.post('http://localhost:3000/api/assets', {
-        name,
-        description,
-        assetType,
-        valuationUSD: parseFloat(valuation),
-        location,
+      await axios.post('http://localhost:3000/api/assets', {
+        ...formData,
+        valuationUSD: Number(formData.valuationUSD),
       });
-
-      const assetId = assetResponse.data.id;
-
-      if (file) {
-        const formData = new FormData();
-        formData.append('file', file);
-        await axios.post(
-          `http://localhost:3000/api/blockchain/upload/${assetId}`,
-          formData,
-          {
-            headers: { 'Content-Type': 'multipart/form-data' },
-          },
-        );
-      }
-
-      setSuccess(true);
-      setTimeout(() => navigate('/assets'), 2000);
-    } catch (err) {
-      const message = axios.isAxiosError(err) 
-        ? err.response?.data?.message 
-        : 'Failed to register asset.';
-      setError(message || 'Failed to register asset.');
+      navigate('/assets');
+    } catch (error) {
+      console.error('Failed to create asset', error);
     } finally {
-      setIsSubmitting(false);
+      setIsLoading(false);
     }
   };
 
-  if (success) {
-    return (
-      <div className="max-w-2xl mx-auto mt-20 text-center animate-in fade-in zoom-in duration-500">
-        <div className="w-24 h-24 bg-accent-green/10 rounded-full flex items-center justify-center mx-auto mb-6">
-          <CheckCircle2 className="text-accent-green w-12 h-12" />
+  const steps = [
+    { id: 1, title: 'Identity', icon: <Building size={18} /> },
+    { id: 2, title: 'Economics', icon: <DollarSign size={18} /> },
+    { id: 3, title: 'Context', icon: <FileText size={18} /> },
+  ];
+
+  const containerVariants: Variants = {
+    hidden: { opacity: 0, x: 20 },
+    visible: { opacity: 1, x: 0 },
+    exit: { opacity: 0, x: -20 },
+  };
+
+  return (
+    <div className="max-w-[1200px] mx-auto pb-20">
+      {/* Header & Progress */}
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-8 mb-16">
+        <div>
+           <div className="inline-flex items-center gap-2 bg-accent-blue/10 text-accent-blue px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest mb-4 border border-accent-blue/20">
+             <ShieldCheck size={12} /> SECURE REGISTRATION
+           </div>
+           <h1 className="text-5xl font-black text-text-primary tracking-tighter">Register <span className="text-accent-blue">Asset</span></h1>
+           <p className="text-text-secondary mt-2 text-lg">Initialize a new RWA on the decentralized ledger.</p>
         </div>
-        <h2 className="text-4xl font-black text-text-primary tracking-tight">Success!</h2>
-        <p className="text-text-secondary mt-2 text-lg">
-          Your asset has been registered and sent for verification.
-        </p>
-        <div className="mt-8 flex justify-center">
-           <div className="flex items-center space-x-2 text-accent-blue font-bold text-sm">
-              <Loader2 className="animate-spin" size={18} />
-              <span>Redirecting to portfolio...</span>
+
+        <div className="flex items-center gap-4 bg-background-secondary p-2 rounded-[2rem] border border-background-card">
+          {steps.map((s) => (
+            <div 
+              key={s.id}
+              className={`flex items-center gap-3 px-6 py-3 rounded-[1.5rem] transition-all duration-500 ${step === s.id ? 'bg-background-card text-accent-blue shadow-xl border border-white/5 pr-8' : 'text-text-secondary opacity-40'}`}
+            >
+              <div className={`w-8 h-8 rounded-xl flex items-center justify-center font-black ${step === s.id ? 'bg-accent-blue/10' : ''}`}>
+                {s.icon}
+              </div>
+              {step === s.id && <span className="text-sm font-black tracking-tight">{s.title}</span>}
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
+        <div className="lg:col-span-8">
+          <Card className="p-10 bg-background-secondary border-background-card rounded-[2.5rem] shadow-2xl shadow-black/40 overflow-hidden relative">
+            <AnimatePresence mode="wait">
+              <motion.form
+                key={step}
+                variants={containerVariants}
+                initial="hidden"
+                animate="visible"
+                exit="exit"
+                onSubmit={handleSubmit}
+                className="space-y-8"
+              >
+                {step === 1 && (
+                  <div className="space-y-8">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                      <Input
+                        label="Asset Prime Name"
+                        placeholder="e.g. Skyline Plaza - Tower A"
+                        value={formData.name}
+                        onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                        required
+                        className="bg-background-card/50 border-background-card focus:border-accent-blue/50"
+                      />
+                      <Select
+                        label="Asset Classification"
+                        options={[
+                          { label: 'Real Estate', value: 'REAL_ESTATE' },
+                          { label: 'Commodity', value: 'COMMODITY' },
+                          { label: 'Fixed Income', value: 'FIXED_INCOME' },
+                          { label: 'Private Equity', value: 'EQUITY' },
+                        ]}
+                        value={formData.assetType}
+                        onChange={(e) => setFormData({ ...formData, assetType: e.target.value })}
+                        className="bg-background-card/50 border-background-card focus:border-accent-blue/50"
+                      />
+                    </div>
+                    <Input
+                      label="Geographic Location / Jurisdiction"
+                      placeholder="e.g. Zurich, Switzerland"
+                      value={formData.location}
+                      onChange={(e) => setFormData({ ...formData, location: e.target.value })}
+                      required
+                      className="bg-background-card/50 border-background-card focus:border-accent-blue/50"
+                      icon={<MapPin size={18} className="text-text-secondary" />}
+                    />
+                  </div>
+                )}
+
+                {step === 2 && (
+                  <div className="space-y-8">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                      <Input
+                        label="Total Valuation (USD)"
+                        type="number"
+                        placeholder="0.00"
+                        value={formData.valuationUSD}
+                        onChange={(e) => setFormData({ ...formData, valuationUSD: e.target.value })}
+                        required
+                        className="bg-background-card/50 border-background-card focus:border-accent-blue/50"
+                        icon={<DollarSign size={18} className="text-text-secondary" />}
+                      />
+                      <Input
+                        label="Internal Area (Sq Ft)"
+                        type="number"
+                        placeholder="2,500"
+                        value={formData.metadata.area}
+                        onChange={(e) => setFormData({ ...formData, metadata: { ...formData.metadata, area: e.target.value } })}
+                        className="bg-background-card/50 border-background-card focus:border-accent-blue/50"
+                      />
+                    </div>
+                    <Input
+                      label="Year of Inception"
+                      type="number"
+                      placeholder="2024"
+                      value={formData.metadata.yearBuilt}
+                      onChange={(e) => setFormData({ ...formData, metadata: { ...formData.metadata, yearBuilt: e.target.value } })}
+                      className="bg-background-card/50 border-background-card focus:border-accent-blue/50"
+                    />
+                  </div>
+                )}
+
+                {step === 3 && (
+                  <div className="space-y-8">
+                    <label className="block">
+                      <span className="text-xs font-black text-text-secondary uppercase tracking-[0.2em] mb-4 block opacity-60">Asset Narrative</span>
+                      <textarea
+                        className="w-full bg-background-card/50 border border-background-card rounded-[2rem] p-6 text-text-primary focus:outline-none focus:ring-4 focus:ring-accent-blue/10 focus:border-accent-blue/40 transition-all min-h-[160px] placeholder:text-text-secondary/30"
+                        placeholder="Provide deep context on project viability and historical performance..."
+                        value={formData.metadata.description}
+                        onChange={(e) => setFormData({ ...formData, metadata: { ...formData.metadata, description: e.target.value } })}
+                      />
+                    </label>
+                    <div className="p-8 border-2 border-dashed border-background-card rounded-[2.5rem] bg-background-card/20 group hover:border-accent-blue/50 transition-all cursor-pointer text-center">
+                       <div className="w-16 h-16 bg-background-card rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-xl group-hover:scale-110 group-hover:bg-accent-blue group-hover:text-white transition-all">
+                          <Upload size={24} />
+                       </div>
+                       <p className="text-sm font-black text-text-primary mb-1">Verify Ownership Documentation</p>
+                       <p className="text-xs font-bold text-text-secondary opacity-60">PDF, JPG or PNG up to 25MB</p>
+                    </div>
+                  </div>
+                )}
+
+                <div className="flex items-center justify-between pt-10 border-t border-background-card/50 mt-10">
+                  <button
+                    type="button"
+                    onClick={() => setStep(s => Math.max(1, s - 1))}
+                    className={`flex items-center gap-2 px-8 py-3 bg-background-card text-text-primary rounded-xl font-bold transition-all hover:bg-background-primary ${step === 1 ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}
+                  >
+                    <ChevronLeft size={18} /> Previous
+                  </button>
+                  
+                  {step < 3 ? (
+                    <button
+                      type="button"
+                      onClick={() => setStep(s => Math.min(3, s + 1))}
+                      className="flex items-center gap-2 px-10 py-3 bg-accent-blue text-white rounded-xl font-black shadow-2xl shadow-accent-blue/20 transition-all hover:bg-accent-blue/90 scale-100 hover:scale-[1.05] active:scale-95"
+                    >
+                      Next Step <ChevronRight size={18} />
+                    </button>
+                  ) : (
+                    <button
+                      type="submit"
+                      disabled={isLoading}
+                      className="flex items-center gap-2 px-12 py-4 bg-accent-blue text-white rounded-2xl font-black shadow-2xl shadow-accent-blue/30 transition-all hover:bg-accent-blue/90 disabled:opacity-50 scale-100 hover:scale-[1.05] active:scale-95"
+                    >
+                      {isLoading ? 'Finalizing Genesis...' : 'Initialize Asset'} <Plus size={20} className="ml-1" />
+                    </button>
+                  )}
+                </div>
+              </motion.form>
+            </AnimatePresence>
+          </Card>
+        </div>
+
+        <div className="lg:col-span-4 flex flex-col gap-6">
+           <Card className="p-8 bg-background-secondary border-background-card rounded-[2.5rem]">
+              <h3 className="text-lg font-black text-text-primary flex items-center gap-2 mb-6">
+                 <Info size={18} className="text-accent-blue" />
+                 Platform Synergy
+              </h3>
+              <ul className="space-y-6">
+                 <li className="flex gap-4">
+                    <div className="w-8 h-8 rounded-lg bg-accent-green/10 flex items-center justify-center shrink-0">
+                       <CheckCircle2 size={16} className="text-accent-green" />
+                    </div>
+                    <p className="text-xs font-bold text-text-secondary leading-relaxed">Verification protocol ensures institutional-grade liquidity.</p>
+                 </li>
+                 <li className="flex gap-4">
+                    <div className="w-8 h-8 rounded-lg bg-accent-blue/10 flex items-center justify-center shrink-0">
+                       <TrendingUp size={16} className="text-accent-blue" />
+                    </div>
+                    <p className="text-xs font-bold text-text-secondary leading-relaxed">Automated market analysis provides real-time fair value estimates.</p>
+                 </li>
+              </ul>
+
+              <div className="mt-10 p-6 bg-background-card/30 rounded-2xl border border-background-card">
+                 <p className="text-[10px] font-black text-text-secondary uppercase tracking-widest mb-3 opacity-60">Estimated Yield</p>
+                 <div className="text-3xl font-black text-accent-green tracking-tighter">8.4% <span className="text-xs font-bold text-text-secondary/40 italic tracking-normal ml-1">APY</span></div>
+              </div>
+           </Card>
+
+           <div className="bg-gradient-to-br from-accent-blue/20 to-accent-purple/20 p-8 rounded-[2.5rem] border border-white/5 relative overflow-hidden group">
+              <div className="absolute -right-10 -bottom-10 w-40 h-40 bg-accent-blue/40 blur-[80px] rounded-full group-hover:scale-150 transition-transform duration-1000"></div>
+              <p className="text-base font-black text-white relative z-10 mb-2">Need institutional assistance?</p>
+              <p className="text-xs font-bold text-text-secondary relative z-10 mb-6 group-hover:text-text-primary transition-colors">Our verification agents are ready to assist with complex documentation.</p>
+              <button className="flex items-center gap-2 text-xs font-black text-accent-blue relative z-10 group-hover:underline">
+                 Talk to an Agent <ArrowRight size={14} />
+              </button>
            </div>
         </div>
       </div>
-    );
-  }
-
-  return (
-    <div className="max-w-4xl mx-auto space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
-      <header className="flex justify-between items-start">
-        <div>
-          <h1 className="text-4xl font-black text-text-primary tracking-tight">Register Asset</h1>
-          <p className="text-text-secondary mt-1">Start the tokenization process for your real-world property.</p>
-        </div>
-        <Badge color="blue" className="mt-2 uppercase tracking-widest px-3 py-1">Step 1 of 2</Badge>
-      </header>
-
-      <form onSubmit={handleSubmit} className="space-y-6">
-        {error && (
-          <div className="p-4 bg-accent-red/10 border border-accent-red/20 text-accent-red text-sm rounded-2xl font-bold flex items-center shadow-lg shadow-accent-red/5">
-            <AlertCircle size={20} className="mr-3 shrink-0" />
-            {error}
-          </div>
-        )}
-
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          {/* Main Info */}
-          <div className="lg:col-span-2 space-y-6">
-            <Card title="Asset Information" subtitle="Basic details about your property">
-              <div className="space-y-6">
-                <Input
-                  label="Asset Name"
-                  placeholder="e.g. Sunset Heights Apartment"
-                  required
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                  icon={<Type size={18} />}
-                />
-                
-                <div className="space-y-1.5">
-                  <label className="text-xs font-bold text-text-secondary uppercase tracking-widest ml-1">
-                    Description
-                  </label>
-                  <textarea
-                    required
-                    rows={5}
-                    value={description}
-                    onChange={(e) => setDescription(e.target.value)}
-                    placeholder="Provide a detailed description of the asset, its unique features, and history..."
-                    className="w-full bg-background-secondary border border-background-card rounded-xl py-3 px-4 text-sm text-text-primary placeholder:text-text-secondary/50 focus:outline-none focus:ring-2 focus:ring-accent-blue/50 focus:border-accent-blue/50 transition-all duration-200"
-                  />
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <Select
-                    label="Asset Type"
-                    value={assetType}
-                    onChange={(e) => setAssetType(e.target.value)}
-                    options={[
-                      { value: 'REAL_ESTATE', label: 'Real Estate' },
-                      { value: 'COMMODITY', label: 'Commodity' },
-                      { value: 'FINE_ART', label: 'Fine Art' },
-                      { value: 'VEHICLE', label: 'Vehicle' },
-                    ]}
-                  />
-                  <Input
-                    label="Valuation (USD)"
-                    type="number"
-                    placeholder="500,000"
-                    required
-                    value={valuation}
-                    onChange={(e) => setValuation(e.target.value)}
-                    icon={<DollarSign size={18} />}
-                  />
-                </div>
-
-                <Input
-                  label="Location / Address"
-                  placeholder="123 Luxury Way, Beverly Hills, CA"
-                  required
-                  value={location}
-                  onChange={(e) => setLocation(e.target.value)}
-                  icon={<MapPin size={18} />}
-                />
-              </div>
-            </Card>
-          </div>
-
-          {/* Verification Side */}
-          <div className="lg:col-span-1 space-y-6">
-            <Card title="Verification Documents" subtitle="Legal proofs and images">
-              <div className="space-y-6">
-                <div className="relative group">
-                  <input
-                    type="file"
-                    className="sr-only"
-                    id="file-upload"
-                    onChange={handleFileChange}
-                    accept="image/*,.pdf"
-                  />
-                  {!file ? (
-                    <label 
-                      htmlFor="file-upload" 
-                      className="flex flex-col items-center justify-center w-full h-48 border-2 border-dashed border-background-card hover:border-accent-blue/50 bg-background-primary/50 hover:bg-accent-blue/5 rounded-3xl transition-all cursor-pointer group-hover:scale-[1.02]"
-                    >
-                      <div className="w-12 h-12 bg-background-card rounded-2xl flex items-center justify-center mb-4 group-hover:bg-accent-blue/10 group-hover:text-accent-blue transition-colors">
-                        <Upload size={24} />
-                      </div>
-                      <p className="text-sm font-bold text-text-primary">Click to upload</p>
-                      <p className="text-[10px] text-text-secondary mt-1 uppercase tracking-wider font-bold">PNG, JPG or PDF</p>
-                    </label>
-                  ) : (
-                    <div className="relative p-4 border border-accent-blue/20 bg-accent-blue/5 rounded-3xl animate-in zoom-in-95 duration-200">
-                      <button 
-                        type="button"
-                        onClick={() => setFile(null)}
-                        className="absolute -top-2 -right-2 w-8 h-8 bg-background-secondary border border-background-card rounded-full flex items-center justify-center text-text-secondary hover:text-accent-red transition-all shadow-lg"
-                      >
-                        <X size={16} />
-                      </button>
-                      <div className="flex items-center">
-                        <div className="w-10 h-10 bg-accent-blue text-white rounded-xl flex items-center justify-center mr-4">
-                           <FileText size={20} />
-                        </div>
-                        <div className="flex-1 min-w-0">
-                           <p className="text-xs font-bold text-text-primary truncate">{file.name}</p>
-                           <p className="text-[10px] text-text-secondary mt-0.5">{(file.size / 1024 / 1024).toFixed(2)} MB</p>
-                        </div>
-                      </div>
-                    </div>
-                  )}
-                </div>
-
-                <div className="bg-background-card/30 rounded-2xl p-4 border border-background-card">
-                   <div className="flex space-x-3">
-                      <AlertCircle size={18} className="text-accent-blue shrink-0" />
-                      <p className="text-[11px] leading-relaxed text-text-secondary">
-                        Documents will be stored securely on IPFS and used by verifiers to validate the asset.
-                      </p>
-                   </div>
-                </div>
-              </div>
-            </Card>
-
-            <button
-              type="submit"
-              disabled={isSubmitting}
-              className="w-full py-4 bg-accent-blue text-white rounded-2xl font-black text-lg hover:bg-accent-blue/90 shadow-2xl shadow-accent-blue/20 transition-all active:scale-95 disabled:opacity-70 disabled:active:scale-100 flex items-center justify-center group"
-            >
-              {isSubmitting ? (
-                <Loader2 className="animate-spin mr-2" size={24} />
-              ) : (
-                <>
-                  Submit Asset
-                  <ChevronRight size={20} className="ml-2 group-hover:translate-x-1 transition-transform" />
-                </>
-              )}
-            </button>
-          </div>
-        </div>
-      </form>
     </div>
   );
 };
 
-export default AssetRegistration;
+export default CreateAsset;

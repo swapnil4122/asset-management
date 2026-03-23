@@ -37,8 +37,8 @@ export class IpfsService {
       });
 
       return response.data.IpfsHash;
-    } catch (error: any) {
-      this.logger.error(`Error uploading to IPFS: ${error.message}`);
+    } catch (error: unknown) {
+      this.logger.error(`Error uploading to IPFS: ${error instanceof Error ? error.message : String(error)}`);
       throw error;
     }
   }

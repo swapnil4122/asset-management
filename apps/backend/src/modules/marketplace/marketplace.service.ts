@@ -90,7 +90,7 @@ export class MarketplaceService {
     return this.listingRepository.save(listing);
   }
 
-  async purchaseAsset(buyerId: string, id: string): Promise<any> {
+  async purchaseAsset(buyerId: string, id: string): Promise<{ success: boolean; message: string }> {
     const listing = await this.listingRepository.findOne({
       where: { id, status: ListingStatus.ACTIVE },
       relations: ['asset'],
@@ -123,7 +123,7 @@ export class MarketplaceService {
     };
   }
 
-  async createEscrow(buyerId: string, listingId: string): Promise<any> {
+  async createEscrow(buyerId: string, listingId: string): Promise<{ success: boolean; message: string; dealId: string }> {
     const listing = await this.listingRepository.findOne({
       where: { id: listingId, status: ListingStatus.ACTIVE },
       relations: ['asset'],
@@ -149,7 +149,7 @@ export class MarketplaceService {
     };
   }
 
-  async releaseEscrow(_sellerId: string, _dealId: string): Promise<any> {
+  async releaseEscrow(_sellerId: string, _dealId: string): Promise<{ success: boolean; message: string }> {
     // Verify deal and seller
     // Mark as completed
     return { success: true, message: 'Funds released to seller' };

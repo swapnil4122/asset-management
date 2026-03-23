@@ -108,7 +108,7 @@ export class BlockchainService implements OnModuleInit {
       // Use ipfsHash from entity or metadata
       let ipfsHash = asset.ipfsHash;
       if (!ipfsHash && asset.metadata && typeof asset.metadata === 'object') {
-        ipfsHash = (asset.metadata as any).ipfsHash;
+        ipfsHash = (asset.metadata as Record<string, unknown>).ipfsHash as string;
       }
 
       const tokenURI = ipfsHash ? `ipfs://${ipfsHash}` : `ipfs://mock-${assetId}`;

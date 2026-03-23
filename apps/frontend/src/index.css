@@ -1,6 +1,29 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+
+@theme {
+  --color-background-primary: #0B0F19;
+  --color-background-secondary: #111827;
+  --color-background-card: #1F2937;
+
+  --color-text-primary: #F9FAFB;
+  --color-text-secondary: #9CA3AF;
+
+  --color-accent-blue: #3B82F6;
+  --color-accent-purple: #8B5CF6;
+  --color-accent-green: #10B981;
+  --color-accent-red: #EF4444;
+
+  --radius-xl: 0.75rem;
+  --radius-2xl: 1rem;
+  --radius-3xl: 1.5rem;
+
+  --spacing-4: 4px;
+  --spacing-8: 8px;
+  --spacing-12: 12px;
+  --spacing-16: 16px;
+  --spacing-24: 24px;
+  --spacing-32: 32px;
+}
 
 :root {
   color-scheme: dark;
