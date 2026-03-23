@@ -37,7 +37,7 @@ This document tracks the execution progress of all tasks defined in `MASTER_TASK
 
 | Task ID | Task Name | Status | Start Date | Notes |
 |---------|-----------|--------|------------|-------|
-| - | - | - | - | - |
+| TASK-015 | Database Migrations Setup | In Progress | 2026-03-23 | Configuring TypeORM migrations |
 
 ---
 
@@ -47,7 +47,6 @@ This document tracks the execution progress of all tasks defined in `MASTER_TASK
 
 | Task ID | Task Name | Status | Dependencies |
 |---------|-----------|--------|--------------|
-| TASK-015 | Database Migrations Setup | Pending | TASK-011,012,013,014 |
 | TASK-016 | Create Asset Creation Endpoint | Pending | TASK-012 |
 | TASK-017 | Create Asset Retrieval Endpoints | Pending | TASK-012 |
 | TASK-018 | Create Asset Update Endpoint | Pending | TASK-012 |
