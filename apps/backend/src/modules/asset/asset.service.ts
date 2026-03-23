@@ -68,11 +68,11 @@ export class AssetService {
   async update(
     id: string,
     updateAssetDto: UpdateAssetDto,
-    ownerId: string,
+    ownerId?: string,
   ): Promise<Asset> {
     const asset = await this.findOne(id);
 
-    if (asset.ownerId !== ownerId) {
+    if (ownerId && asset.ownerId !== ownerId) {
       throw new ForbiddenException(
         'You do not have permission to update this asset',
       );

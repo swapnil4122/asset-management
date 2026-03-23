@@ -6,7 +6,7 @@ Track all branches created in the repository. When you create or merge a branch,
 
 | Branch Name | Parent Branch | Task ID | Feature Description | Status |
 |-------------|---------------|---------|---------------------|--------|
-| feature/asset-update-endpoint | develop | TASK-018 | Create Asset Update Endpoint | Active |
+| feature/asset-ownership-guard | develop | TASK-019 | Establish Asset Module Guards | Active |
 
 ## Merged Branches
 
@@ -17,6 +17,7 @@ Track all branches created in the repository. When you create or merge a branch,
 | feature/database-migrations | develop | TASK-015 | Database Migrations Setup | Merged |
 | feature/asset-creation-endpoint | develop | TASK-016 | Create Asset Creation Endpoint | Merged |
 | feature/asset-retrieval | develop | TASK-017 | Create Asset Retrieval Endpoints | Merged |
+| feature/asset-update-endpoint | develop | TASK-018 | Create Asset Update Endpoint | Merged |
 
 ## Closed/Abandoned Branches
 

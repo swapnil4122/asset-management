@@ -14,6 +14,7 @@ import { CreateAssetDto } from './dto/create-asset.dto';
 import { UpdateAssetDto } from './dto/update-asset.dto';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { OptionalJwtAuthGuard } from '../auth/guards/optional-jwt-auth.guard';
+import { IsOwnerGuard } from './guards/is-owner.guard';
 import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { PaginationDto } from '../../common/dto/pagination.dto';
 
@@ -48,14 +49,13 @@ export class AssetController {
   }
 
   @Patch(':id')
-  @UseGuards(JwtAuthGuard)
+  @UseGuards(JwtAuthGuard, IsOwnerGuard)
   @ApiBearerAuth('JWT')
   @ApiOperation({ summary: 'Update asset details (owner only, pending only)' })
   async update(
     @Param('id') id: string,
     @Body() updateAssetDto: UpdateAssetDto,
-    @Request() req: any,
   ) {
-    return this.assetService.update(id, updateAssetDto, req.user.id);
+    return this.assetService.update(id, updateAssetDto);
   }
 }
