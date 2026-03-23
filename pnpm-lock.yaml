@@ -175,6 +175,9 @@ importers:
 
   apps/frontend:
     dependencies:
+      '@asset-mgmt/ui':
+        specifier: workspace:*
+        version: link:../../packages/ui
       react:
         specifier: ^19.2.4
         version: 19.2.4
@@ -257,6 +260,25 @@ importers:
     devDependencies:
       typescript:
         specifier: ^5.4.5
+        version: 5.9.3
+
+  packages/ui:
+    dependencies:
+      react:
+        specifier: ^19.2.4
+        version: 19.2.4
+      react-dom:
+        specifier: ^19.2.4
+        version: 19.2.4(react@19.2.4)
+    devDependencies:
+      '@types/react':
+        specifier: ^19.2.14
+        version: 19.2.14
+      '@types/react-dom':
+        specifier: ^19.2.3
+        version: 19.2.3(@types/react@19.2.14)
+      typescript:
+        specifier: ^5.9.3
         version: 5.9.3
 
 packages:
