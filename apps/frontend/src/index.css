@@ -1,12 +1,30 @@
 @import "tailwindcss";
 
-@theme {
-  --color-background-primary: #0B0F19;
-  --color-background-secondary: #111827;
-  --color-background-card: #1F2937;
+:root {
+  --background-primary: #F3F4F6;
+  --background-secondary: #E5E7EB;
+  --background-card: #FFFFFF;
+  --text-primary: #111827;
+  --text-secondary: #4B5563;
+  --color-scheme: light;
+}
 
-  --color-text-primary: #F9FAFB;
-  --color-text-secondary: #9CA3AF;
+[data-theme='dark'] {
+  --background-primary: #0B0F19;
+  --background-secondary: #111827;
+  --background-card: #1F2937;
+  --text-primary: #F9FAFB;
+  --text-secondary: #9CA3AF;
+  --color-scheme: dark;
+}
+
+@theme {
+  --color-background-primary: var(--background-primary);
+  --color-background-secondary: var(--background-secondary);
+  --color-background-card: var(--background-card);
+
+  --color-text-primary: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
 
   --color-accent-blue: #3B82F6;
   --color-accent-purple: #8B5CF6;
@@ -25,12 +43,9 @@
   --spacing-32: 32px;
 }
 
-:root {
-  color-scheme: dark;
-}
-
 body {
-  @apply bg-background-primary text-text-primary antialiased selection:bg-accent-blue/30 selection:text-white;
+  @apply bg-background-primary text-text-primary antialiased selection:bg-accent-blue/30 selection:text-white transition-colors duration-200;
+  color-scheme: var(--color-scheme);
 }
 
 /* Custom scrollbar */

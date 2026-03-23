@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Bell, Search, Wallet, User, ChevronDown, LogOut, Settings, Menu } from 'lucide-react';
 import { useAuth } from '../../hooks/useAuth';
 import { useWallet } from '../../hooks/useWallet';
+import { ThemeToggle } from '../ThemeToggle';
 
 interface NavbarProps {
   toggleMobileMenu: () => void;
@@ -13,7 +14,7 @@ const Navbar: React.FC<NavbarProps> = ({ toggleMobileMenu }) => {
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
 
   return (
-    <header className="h-16 sticky top-0 bg-[#0B0F19]/80 backdrop-blur-md border-b border-[#1F2937] z-40 px-6 flex items-center justify-between w-full">
+    <header className="h-16 sticky top-4 mx-6 bg-background-primary/80 backdrop-blur-md border border-background-card z-40 px-6 flex items-center justify-between rounded-2xl shadow-lg transition-all duration-300">
       {/* Mobile Menu Toggle */}
       <button 
         onClick={toggleMobileMenu}
@@ -46,6 +47,9 @@ const Navbar: React.FC<NavbarProps> = ({ toggleMobileMenu }) => {
           <Wallet size={18} className={`mr-2 ${isConnected ? 'text-accent-green' : 'text-accent-blue'}`} />
           <span>{isConnected ? `${address?.slice(0, 6)}...${address?.slice(-4)}` : 'Connect Wallet'}</span>
         </button>
+
+        {/* Theme Toggle */}
+        <ThemeToggle />
 
         {/* Notifications */}
         <button className="p-2 text-text-secondary hover:text-text-primary hover:bg-background-card rounded-xl transition-all relative">

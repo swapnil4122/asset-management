@@ -13,7 +13,7 @@ const DashboardLayout: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#0B0F19] text-[#F9FAFB] flex">
+    <div className="min-h-screen bg-background-primary text-text-primary flex">
       {/* Sidebar - Fixed Left */}
       <Sidebar 
         isCollapsed={false} 
