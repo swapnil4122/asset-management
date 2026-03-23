@@ -10,6 +10,7 @@ import { Listing } from './entity/listing.entity';
 import { Asset } from '../asset/entity/asset.entity';
 import { CreateListingDto } from './dto/create-listing.dto';
 import { AssetStatus, ListingStatus } from '@asset-mgmt/shared-types';
+import { BlockchainService } from '../blockchain/blockchain.service';
 
 @Injectable()
 export class MarketplaceService {
@@ -18,6 +19,7 @@ export class MarketplaceService {
     private readonly listingRepository: Repository<Listing>,
     @InjectRepository(Asset)
     private readonly assetRepository: Repository<Asset>,
+    private readonly blockchainService: BlockchainService,
   ) {}
 
   async createListing(
@@ -86,5 +88,38 @@ export class MarketplaceService {
 
     listing.status = ListingStatus.CANCELLED;
     return this.listingRepository.save(listing);
+  }
+
+  async purchaseAsset(buyerId: string, id: string): Promise<any> {
+    const listing = await this.listingRepository.findOne({
+      where: { id, status: ListingStatus.ACTIVE },
+      relations: ['asset'],
+    });
+
+    if (!listing) {
+      throw new NotFoundException('Listing not found');
+    }
+
+    if (listing.sellerId === buyerId) {
+      throw new BadRequestException('Cannot buy your own listing');
+    }
+
+    // In a real app, the backend might handle the escrow or proxy the buy
+    // if using a custodial wallet. Otherwise, the frontend signs.
+    // We will simulate a backend-triggered purchase.
+    
+    // This tx typically needs ETH sent. We'll assume the admin wallet 
+    // or a specialized relayer handles it for now in this mock.
+    
+    // const txHash = await this.blockchainService.executeMarketplaceBuy(listing.id, buyerId);
+
+    listing.status = ListingStatus.SOLD;
+    await this.listingRepository.save(listing);
+
+    return {
+      success: true,
+      message: 'Purchase successful (simulated)',
+      // txHash
+    };
   }
 }

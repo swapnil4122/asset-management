@@ -6,9 +6,9 @@ This document tracks the execution progress of all tasks defined in `MASTER_TASK
 | Category | Count |
 |----------|-------|
 | **Total Tasks** | 50 |
-| **Completed** | 30 |
+| **Completed** | 33 |
 | **In Progress** | 1 |
-| **Pending** | 19 |
+| **Pending** | 16 |
 
 ---
 
@@ -64,10 +64,10 @@ This document tracks the execution progress of all tasks defined in `MASTER_TASK
 | TASK-028 | Hardhat Deployment Scripts | Completed | 2026-03-23 | Implemented automated deployment with address persistence |
 | TASK-029 | Contract Event Listeners Backend | Completed | 2026-03-23 | Implemented Ethers.js listeners for contract events |
 | TASK-030 | Tokenization Execution API | Completed | 2026-03-23 | Implemented admin-only minting endpoint |
-| TASK-031 | Create Listing Endpoint | In Progress | 2026-03-23 | Implementing Asset Marketplace listing logic |
-| TASK-032 | Cancel Listing Endpoint | Pending | TASK-031 |
-| TASK-033 | View Active Listings API | Pending | TASK-031 |
-| TASK-034 | Execute Purchase API | Pending | TASK-031,027 |
+| TASK-031 | Create Listing Endpoint | Completed | 2026-03-23 | Implemented Asset Marketplace listing logic |
+| TASK-032 | Cancel Listing Endpoint | Completed | 2026-03-23 | Implemented listing status update to CANCELLED |
+| TASK-033 | View Active Listings API | Completed | 2026-03-23 | Implemented GET endpoints for listings |
+| TASK-034 | Execute Purchase API | In Progress | 2026-03-23 | Implementing on-chain purchase and escrow logic |
 | TASK-035 | Escrow Implementation | Pending | TASK-034 |
 | TASK-036 | React Router Setup | Pending | TASK-003 |
 | TASK-037 | Auth Provider Context | Pending | TASK-036 |

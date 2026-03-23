@@ -45,4 +45,12 @@ export class MarketplaceController {
   async cancel(@Request() req: any, @Param('id') id: string) {
     return this.marketplaceService.cancelListing(req.user.id, id);
   }
+
+  @Post('purchase/:id')
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
+  @ApiOperation({ summary: 'Purchase a listed asset' })
+  async purchase(@Request() req: any, @Param('id') id: string) {
+    return this.marketplaceService.purchaseAsset(req.user.id, id);
+  }
 }
