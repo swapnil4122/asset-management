@@ -6,8 +6,7 @@ Track all branches created in the repository. When you create or merge a branch,
 
 | Branch Name | Parent Branch | Task ID | Feature Description | Status |
 |-------------|---------------|---------|---------------------|--------|
-| feature/frontend-router-setup | develop | TASK-036 | React Router Setup | Active |
-| feature/prod-env-config | develop | TASK-050 | Production Config | Active |
+| - | - | - | - | - |
 
 ## Merged Branches
 
@@ -39,13 +38,15 @@ Track all branches created in the repository. When you create or merge a branch,
 | feature/frontend-asset-details | develop | TASK-043 | Asset Detail Page | Merged |
 | feature/frontend-verifier-dashboard | develop | TASK-044 | Verifier Role UI | Merged |
 | feature/backend-caching | develop | TASK-049 | Redis Caching | Merged |
+| feature/e2e-tests | develop | TASK-048 | E2E Testing Setup | Merged |
+| feature/prod-env-config | develop | TASK-050 | Production Config | Merged |
+| feature/image-optimization | develop | TASK-050 | Image Optimization | Merged |
 
 ## Closed/Abandoned Branches
 
 | Branch Name | Parent Branch | Task ID | Feature Description | Status |
 |-------------|---------------|---------|---------------------|--------|
 | feature/docker-setup | develop | TASK-045 | Docker Setup | Merged |
-| feature/e2e-tests | develop | TASK-048 | E2E Testing Setup | Merged |
 
 ---
 
