@@ -75,8 +75,8 @@ export class BlockchainService implements OnModuleInit {
           }
         },
       );
-    } catch (error: any) {
-      this.logger.error(`Error setting up listeners: ${error.message}`);
+    } catch (error: unknown) {
+      this.logger.error(`Error setting up listeners: ${error instanceof Error ? error.message : String(error)}`);
     }
   }
 
@@ -124,9 +124,10 @@ export class BlockchainService implements OnModuleInit {
 
       this.logger.log(`Mint transaction submitted: ${tx.hash}`);
       return tx.hash;
-    } catch (error: any) {
-      this.logger.error(`Minting failed: ${error.message}`);
-      throw new InternalServerErrorException(`Minting failed: ${error.message}`);
+    } catch (error: unknown) {
+      const message = error instanceof Error ? error.message : String(error);
+      this.logger.error(`Minting failed: ${message}`);
+      throw new InternalServerErrorException(`Minting failed: ${message}`);
     }
   }
 }

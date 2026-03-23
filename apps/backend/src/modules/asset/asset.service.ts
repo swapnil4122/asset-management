@@ -3,6 +3,7 @@ import {
   NotFoundException,
   ForbiddenException,
   BadRequestException,
+  Logger,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
@@ -16,6 +17,7 @@ import sharp from 'sharp';
 
 @Injectable()
 export class AssetService {
+  private readonly logger = new Logger(AssetService.name);
   constructor(
     @InjectRepository(Asset)
     private readonly assetRepository: Repository<Asset>,
@@ -43,7 +45,7 @@ export class AssetService {
           size: buffer.length,
         } as Express.Multer.File;
       } catch (error) {
-        console.error('Image optimization failed', error);
+        this.logger.error('Image optimization failed', error instanceof Error ? error.stack : error);
         // Fallback to original file
       }
     }

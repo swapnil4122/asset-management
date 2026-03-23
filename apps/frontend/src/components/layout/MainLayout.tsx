@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { Outlet } from 'react-router-dom';
 import Sidebar from './Sidebar';
 import Navbar from './Navbar';
-import { useAuth } from '../../hooks/useAuth';
 
 const MainLayout: React.FC = () => {
   const [isCollapsed, setIsCollapsed] = useState(() => {
@@ -10,7 +9,6 @@ const MainLayout: React.FC = () => {
     return saved ? JSON.parse(saved) : false;
   });
   const [isMobileOpen, setIsMobileOpen] = useState(false);
-  const { user } = useAuth();
 
   const toggleCollapse = () => {
     if (window.innerWidth < 1024) {
@@ -29,7 +27,6 @@ const MainLayout: React.FC = () => {
         isCollapsed={isCollapsed} 
         isMobileOpen={isMobileOpen}
         toggleCollapse={toggleCollapse} 
-        role={user?.role}
       />
 
       {/* Mobile Overlay */}

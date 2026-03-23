@@ -24,5 +24,5 @@ export class CreateAssetDto {
   location?: string;
 
   @IsOptional()
-  metadata?: Record<string, any>;
+  metadata?: Record<string, unknown>;
 }

@@ -1,5 +1,5 @@
 import { NestFactory } from '@nestjs/core';
-import { ValidationPipe, VersioningType } from '@nestjs/common';
+import { ValidationPipe, VersioningType, Logger } from '@nestjs/common';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { ConfigService } from '@nestjs/config';
 
@@ -67,11 +67,11 @@ async function bootstrap(): Promise<void> {
 
   await app.listen(port);
 
-  console.log(`🚀 Asset Management API running on: http://localhost:${port}/api/v1`);
-  console.log(`📚 Swagger docs: http://localhost:${port}/api/docs`);
+  Logger.log(`🚀 Asset Management API running on: http://localhost:${port}/api/v1`, 'Bootstrap');
+  Logger.log(`📚 Swagger docs: http://localhost:${port}/api/docs`, 'Bootstrap');
 }
 
 bootstrap().catch((error: unknown) => {
-  console.error('Failed to start application', error);
+  Logger.error('Failed to start application', error instanceof Error ? error.stack : error, 'Bootstrap');
   process.exit(1);
 });

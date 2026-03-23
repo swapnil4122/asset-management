@@ -30,7 +30,7 @@ export class AssetController {
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth('JWT')
   @ApiOperation({ summary: 'Register a new asset' })
-  async create(@Body() createAssetDto: CreateAssetDto, @Request() req: any) {
+  async create(@Body() createAssetDto: CreateAssetDto, @Request() req: { user: { id: string } }) {
     return this.assetService.create(createAssetDto, req.user.id);
   }
 
@@ -41,7 +41,7 @@ export class AssetController {
     summary:
       'Get all assets (paginated). Returns owned if authenticated, else public.',
   })
-  async findAll(@Query() pagination: PaginationDto, @Request() req: any) {
+  async findAll(@Query() pagination: PaginationDto, @Request() req: { user?: { id: string } }) {
     return this.assetService.findAll(pagination, req.user?.id);
   }
 
