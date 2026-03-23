@@ -6,9 +6,9 @@ This document tracks the execution progress of all tasks defined in `MASTER_TASK
 | Category | Count |
 |----------|-------|
 | **Total Tasks** | 50 |
-| **Completed** | 29 |
+| **Completed** | 30 |
 | **In Progress** | 1 |
-| **Pending** | 20 |
+| **Pending** | 19 |
 
 ---
 
@@ -63,8 +63,8 @@ This document tracks the execution progress of all tasks defined in `MASTER_TASK
 | TASK-027 | Solidity Marketplace Contract | Completed | 2026-03-23 | Marketplace with fee support already implemented |
 | TASK-028 | Hardhat Deployment Scripts | Completed | 2026-03-23 | Implemented automated deployment with address persistence |
 | TASK-029 | Contract Event Listeners Backend | Completed | 2026-03-23 | Implemented Ethers.js listeners for contract events |
-| TASK-030 | Tokenization Execution API | In Progress | 2026-03-23 | Implementing admin-only minting endpoint |
-| TASK-031 | Create Listing Endpoint | Pending | TASK-013 |
+| TASK-030 | Tokenization Execution API | Completed | 2026-03-23 | Implemented admin-only minting endpoint |
+| TASK-031 | Create Listing Endpoint | In Progress | 2026-03-23 | Implementing Asset Marketplace listing logic |
 | TASK-032 | Cancel Listing Endpoint | Pending | TASK-031 |
 | TASK-033 | View Active Listings API | Pending | TASK-031 |
 | TASK-034 | Execute Purchase API | Pending | TASK-031,027 |

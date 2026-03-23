@@ -6,7 +6,7 @@ Track all branches created in the repository. When you create or merge a branch,
 
 | Branch Name | Parent Branch | Task ID | Feature Description | Status |
 |-------------|---------------|---------|---------------------|--------|
-| feature/blockchain-tokenization-api | develop | TASK-030 | Tokenization Execution API | Active |
+| feature/marketplace-listing-api | develop | TASK-031 | Create Listing Endpoint | Active |
 
 ## Merged Branches
 
@@ -25,6 +25,7 @@ Track all branches created in the repository. When you create or merge a branch,
 | feature/verification-approval-workflow | develop | TASK-023 | Approve Verification Workflow | Merged |
 | feature/smart-contracts-asset-token | develop | TASK-026 | Solidity AssetToken Contract | Merged |
 | feature/blockchain-event-listeners | develop | TASK-029 | Contract Event Listeners Backend | Merged |
+| feature/blockchain-tokenization-api | develop | TASK-030 | Tokenization Execution API | Merged |
 | feature/verification-rejection-workflow | develop | TASK-024 | Reject Verification Workflow | Merged |
 | feature/verification-status-notifications | develop | TASK-025 | Verification Status Webhook | Merged |
 
