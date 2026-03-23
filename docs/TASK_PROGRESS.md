@@ -6,9 +6,9 @@ This document tracks the execution progress of all tasks defined in `MASTER_TASK
 | Category | Count |
 |----------|-------|
 | **Total Tasks** | 50 |
-| **Completed** | 24 |
+| **Completed** | 27 |
 | **In Progress** | 1 |
-| **Pending** | 25 |
+| **Pending** | 22 |
 
 ---
 
@@ -39,6 +39,8 @@ This document tracks the execution progress of all tasks defined in `MASTER_TASK
 | TASK-021 | Submit Verification Request API | Completed | 2026-03-23 | Implemented request creation and asset linkage |
 | TASK-022 | Verifier Dashboard API | Completed | 2026-03-23 | Implemented verifier-only views and status updates |
 | TASK-023 | Approve Verification Workflow | Completed | 2026-03-23 | Implemented approval logic and asset status transition |
+| TASK-024 | Reject Verification Workflow | Completed | 2026-03-23 | Implemented rejection logic and asset status transition |
+| TASK-025 | Verification Status Webhook | Completed | 2026-03-23 | Implemented mock notification service |
 
 ---
 
@@ -56,9 +58,10 @@ This document tracks the execution progress of all tasks defined in `MASTER_TASK
 
 | Task ID | Task Name | Status | Dependencies |
 |---------|-----------|--------|--------------|
-| TASK-026 | Solidity AssetToken Contract | Pending | None |
-| TASK-027 | Solidity Marketplace Contract | Pending | TASK-026 |
-| TASK-028 | Hardhat Deployment Scripts | Pending | TASK-027 |
+| TASK-025 | Verification Status Webhook | Completed | 2026-03-23 | Implemented mock notification service |
+| TASK-026 | Solidity AssetToken Contract | Completed | 2026-03-23 | ERC721 with URI storage already implemented |
+| TASK-027 | Solidity Marketplace Contract | Completed | 2026-03-23 | Marketplace with fee support already implemented |
+| TASK-028 | Hardhat Deployment Scripts | In Progress | 2026-03-23 | Checking/Implementing deployment scripts |
 | TASK-029 | Contract Event Listeners Backend | Pending | TASK-028 |
 | TASK-030 | Tokenization Execution API | Pending | TASK-029 |
 | TASK-031 | Create Listing Endpoint | Pending | TASK-013 |
