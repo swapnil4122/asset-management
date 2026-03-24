@@ -17,8 +17,13 @@
     "format": "pnpm run -r format",
     "contracts:compile": "pnpm --filter @asset-mgmt/contracts compile",
     "contracts:deploy": "pnpm --filter @asset-mgmt/contracts deploy",
-    "docker:up": "docker-compose -f infrastructure/docker/docker-compose.yml up -d",
-    "docker:down": "docker-compose -f infrastructure/docker/docker-compose.yml down",
+    "docker:up": "DOCKER_HOST=unix:///var/run/docker.sock docker compose -f infrastructure/docker/docker-compose.yml up -d",
+    "docker:down": "DOCKER_HOST=unix:///var/run/docker.sock docker compose -f infrastructure/docker/docker-compose.yml down",
+    "restart:backend": "npx kill-port 3000 && pnpm dev:backend",
+    "restart:frontend": "npx kill-port 5173 && pnpm dev:frontend",
+    "kill:backend": "npx kill-port 3000",
+    "kill:frontend": "npx kill-port 5173",
+    "restart": "pnpm kill:backend && pnpm kill:frontend && pnpm dev",
     "prepare": "husky install"
   },
   "devDependencies": {

@@ -65,8 +65,9 @@ const Navbar: React.FC<NavbarProps> = ({ toggleMobileMenu }) => {
           >
             <div className="text-right mr-3 hidden sm:block">
               <p className="text-sm font-bold text-text-primary leading-tight">
-                {user?.name || 'User'}
+                {user?.username || 'User'}
               </p>
+
               <p className="text-[11px] font-medium text-text-secondary uppercase tracking-wider">
                 {user?.role || 'Guest'}
               </p>

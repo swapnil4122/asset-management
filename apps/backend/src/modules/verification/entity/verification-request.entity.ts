@@ -10,22 +10,23 @@ import { User } from '../../user/entity/user.entity';
 @Index(['assetId'])
 @Index(['requestedById'])
 export class VerificationRequest extends AbstractBaseEntity {
-  @Column({ name: 'asset_id' })
+  @Column({ name: 'asset_id', type: 'varchar' })
   assetId: string;
 
   @ManyToOne(() => Asset, (asset) => asset.verificationRequests)
   @JoinColumn({ name: 'asset_id' })
   asset: Asset;
 
-  @Column({ name: 'requested_by_id' })
+  @Column({ name: 'requested_by_id', type: 'varchar' })
   requestedById: string;
 
   @ManyToOne(() => User)
   @JoinColumn({ name: 'requested_by_id' })
   requestedBy: User;
 
-  @Column({ name: 'reviewed_by_id', nullable: true })
+  @Column({ name: 'reviewed_by_id', type: 'varchar', nullable: true })
   reviewedById: string | null;
+
 
   @ManyToOne(() => User, { nullable: true })
   @JoinColumn({ name: 'reviewed_by_id' })

@@ -9,7 +9,9 @@ import { EventEmitterModule } from '@nestjs/event-emitter';
 import { databaseConfig } from './config/database.config';
 import { redisConfig } from './config/redis.config';
 import { appConfig } from './config/app.config';
+import { authConfig } from './config/auth.config';
 import { validate } from './config/env.validation';
+
 
 // Feature Modules
 import { UserModule } from './modules/user/user.module';
@@ -19,7 +21,9 @@ import { VerificationModule } from './modules/verification/verification.module';
 import { MarketplaceModule } from './modules/marketplace/marketplace.module';
 import { BlockchainModule } from './modules/blockchain/blockchain.module';
 import { NotificationModule } from './modules/notification/notification.module';
+import { RedisModule } from './modules/redis/redis.module';
 // import { HealthModule } from './modules/health/health.module';
+
 
 
 @Module({
@@ -27,10 +31,16 @@ import { NotificationModule } from './modules/notification/notification.module';
     // ---- Config ----
     ConfigModule.forRoot({
       isGlobal: true,
-      load: [appConfig, databaseConfig, redisConfig],
+      load: [appConfig, authConfig, databaseConfig, redisConfig],
       validate,
-      envFilePath: ['.env.local', '.env'],
+      envFilePath: [
+        '.env.local',
+        '.env',
+        '../../.env.local',
+        '../../.env'
+      ],
     }),
+
 
     // ---- TypeORM ----
     TypeOrmModule.forRootAsync({
@@ -90,8 +100,10 @@ import { NotificationModule } from './modules/notification/notification.module';
     VerificationModule,
     NotificationModule,
     MarketplaceModule,
+    RedisModule,
     // HealthModule,
   ],
+
   controllers: [],
   providers: [],
 })

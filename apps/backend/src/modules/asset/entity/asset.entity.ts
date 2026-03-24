@@ -12,7 +12,7 @@ import { AssetTransfer } from './asset-transfer.entity';
 @Index(['assetType'])
 @Index(['ownerId'])
 export class Asset extends AbstractBaseEntity {
-  @Column({ length: 255 })
+  @Column({ type: 'varchar', length: 255 })
   name: string;
 
   @Column({ type: 'text' })
@@ -32,23 +32,23 @@ export class Asset extends AbstractBaseEntity {
   })
   status: AssetStatus;
 
-  @Column({ name: 'owner_id' })
+  @Column({ name: 'owner_id', type: 'varchar' })
   ownerId: string;
 
   @ManyToOne(() => User, (user) => user.assets, { onDelete: 'RESTRICT' })
   @JoinColumn({ name: 'owner_id' })
   owner: User;
 
-  @Column({ name: 'token_id', nullable: true })
+  @Column({ name: 'token_id', type: 'varchar', nullable: true })
   tokenId: string | null;
 
-  @Column({ name: 'contract_address', nullable: true, length: 42 })
+  @Column({ name: 'contract_address', type: 'varchar', nullable: true, length: 42 })
   contractAddress: string | null;
 
-  @Column({ name: 'ipfs_hash', nullable: true })
+  @Column({ name: 'ipfs_hash', type: 'varchar', nullable: true })
   ipfsHash: string | null;
 
-  @Column({ name: 'metadata_uri', nullable: true })
+  @Column({ name: 'metadata_uri', type: 'varchar', nullable: true })
   metadataUri: string | null;
 
   @Column({
@@ -69,8 +69,9 @@ export class Asset extends AbstractBaseEntity {
   @Column({ name: 'available_shares', nullable: true, type: 'int' })
   availableShares: number | null;
 
-  @Column({ nullable: true, length: 500 })
+  @Column({ type: 'varchar', nullable: true, length: 500 })
   location: string | null;
+
 
   @Column({ type: 'jsonb', default: [] })
   documents: string[];

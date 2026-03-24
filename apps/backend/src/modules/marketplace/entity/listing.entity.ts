@@ -24,7 +24,7 @@ export class Listing extends AbstractBaseEntity {
   @JoinColumn({ name: 'seller_id' })
   seller: User;
 
-  @Column({ name: 'price_eth', length: 50 })
+  @Column({ name: 'price_eth', type: 'varchar', length: 50 })
   priceETH: string;
 
   @Column({
@@ -52,6 +52,7 @@ export class Listing extends AbstractBaseEntity {
   @Column({ name: 'shares_available', nullable: true, type: 'int' })
   sharesAvailable: number | null;
 
-  @Column({ name: 'share_price_eth', nullable: true, length: 50 })
+  @Column({ name: 'share_price_eth', type: 'varchar', length: 50, nullable: true })
   sharePriceETH: string | null;
+
 }

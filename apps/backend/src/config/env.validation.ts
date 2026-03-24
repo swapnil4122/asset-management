@@ -54,7 +54,20 @@ class EnvironmentVariables {
 
   @IsString()
   JWT_REFRESH_SECRET: string = 'changeme-refresh';
+
+  @IsString()
+  @IsOptional()
+  GOOGLE_CLIENT_ID?: string;
+
+  @IsString()
+  @IsOptional()
+  GOOGLE_CLIENT_SECRET?: string;
+
+  @IsString()
+  @IsOptional()
+  GOOGLE_CALLBACK_URL?: string;
 }
+
 
 export function validate(config: Record<string, unknown>): EnvironmentVariables {
   const validatedConfig = plainToInstance(EnvironmentVariables, config, {

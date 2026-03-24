@@ -851,5 +851,38 @@ This document breaks down the entire Asset Management Platform into atomic, inde
 
 ---
 
+## PHASE 10: Identity & Onboarding
+
+### Task Title: Auth Module Setup & User Entity Updates
+### Task ID: AUTH-001
+### Objective: Update User entity and setup base Auth module.
+### Context: Support KYC, onboarding, and multi-auth types.
+### Technical Requirements: TypeORM entity updates.
+### Files to Create / Modify: `apps/backend/src/modules/user/entity/user.entity.ts`
+### Step-by-Step Instructions:
+1. Add `kycStatus`, `onboardingCompleted`, and `googleId` to User entity.
+### Expected Output: User schema updated.
+### Dependencies: TASK-011
+### Validation Criteria: SQL schema reflects new columns.
+### Notes: Use Enums for KYC status.
+
+---
+
+### Task Title: Implement AuthSession Entity
+### Task ID: AUTH-002
+### Objective: Support multi-device sessions.
+### Context: Better security and session management.
+### Technical Requirements: TypeORM entity, link to User.
+### Files to Create / Modify: `apps/backend/src/modules/auth/entity/auth-session.entity.ts`
+### Step-by-Step Instructions:
+1. Create entity with `refreshToken`, `expiresAt`, `userAgent`, `ip`.
+### Expected Output: Session table created.
+### Dependencies: AUTH-001
+### Validation Criteria: Sessions can be tracked per user.
+### Notes: None.
+
+---
+
 ## Conclusion
 This list acts as the absolute truth for platform execution. AI agents must execute precisely one task per feature branch and follow validation criteria faithfully.
+

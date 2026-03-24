@@ -6,7 +6,16 @@ Track all branches created in the repository. When you create or merge a branch,
 
 | Branch Name | Parent Branch | Task ID | Feature Description | Status |
 |-------------|---------------|---------|---------------------|--------|
-| - | - | - | - | - |
+| feature/auth-email | main | AUTH-001 | Email/Password + Session Entity | Active |
+| feature/auth-forgot-password | main | AUTH-011 | Forgot Password Backend | Active |
+| feature/auth-reset-password | main | AUTH-012 | Reset Password Backend | Active |
+| feature/auth-forgot-password-ui | main | AUTH-013 | Forgot Password Frontend UI | Active |
+| feature/auth-reset-password-ui | main | AUTH-014 | Reset Password Frontend UI | Active |
+
+
+
+
+
 
 ## Merged Branches
 

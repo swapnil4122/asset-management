@@ -1,4 +1,5 @@
-import { IsEmail, IsEnum, IsOptional, IsString, MinLength, IsEthereumAddress } from 'class-validator';
+import { IsEmail, IsEnum, IsOptional, IsString, MinLength, IsEthereumAddress, IsBoolean } from 'class-validator';
+
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 
 import { UserRole } from '@asset-mgmt/shared-types';
@@ -40,7 +41,13 @@ export class UpdateUserDto {
   @IsOptional()
   @IsEnum(UserRole)
   role?: UserRole;
+
+  @ApiPropertyOptional()
+  @IsOptional()
+  @IsBoolean()
+  onboardingCompleted?: boolean;
 }
+
 
 export class PaginationDto {
   @ApiPropertyOptional({ default: 1 })

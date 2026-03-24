@@ -14,10 +14,10 @@ export class User extends AbstractBaseEntity {
   @Column({ length: 100 })
   username: string;
 
-  @Column({ name: 'password_hash', select: false })
+  @Column({ name: 'password_hash', type: 'varchar', select: false })
   passwordHash: string;
 
-  @Column({ name: 'wallet_address', nullable: true, length: 42 })
+  @Column({ name: 'wallet_address', nullable: true, type: 'varchar', length: 42 })
   walletAddress: string | null;
 
   @Column({
@@ -33,14 +33,30 @@ export class User extends AbstractBaseEntity {
   @Column({ name: 'is_active', default: true })
   isActive: boolean;
 
-  @Column({ name: 'refresh_token', nullable: true, select: false })
+  @Column({ 
+    name: 'kyc_status', 
+    type: 'enum', 
+    enum: ['PENDING', 'VERIFIED', 'REJECTED'], 
+    default: 'PENDING' 
+  })
+  kycStatus: 'PENDING' | 'VERIFIED' | 'REJECTED';
+
+  @Column({ name: 'onboarding_completed', default: false })
+  onboardingCompleted: boolean;
+
+  @Column({ name: 'google_id', type: 'varchar', nullable: true, length: 100 })
+  googleId: string | null;
+
+  @Column({ name: 'refresh_token', type: 'varchar', nullable: true, select: false })
   refreshToken: string | null;
 
-  @Column({ name: 'wallet_nonce', nullable: true })
+  @Column({ name: 'wallet_nonce', type: 'varchar', nullable: true })
   walletNonce: string | null;
 
   @Column({ name: 'last_login_at', type: 'timestamptz', nullable: true })
   lastLoginAt: Date | null;
+
+
 
   // ---- Relations ----
   @OneToMany(() => Asset, (asset) => asset.owner)

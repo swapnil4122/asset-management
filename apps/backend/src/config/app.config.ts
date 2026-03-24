@@ -6,6 +6,8 @@ export const appConfig = registerAs('app', () => ({
   port: parseInt(process.env.PORT ?? '3000', 10),
   apiVersion: process.env.API_VERSION ?? 'v1',
   corsOrigins: (process.env.CORS_ORIGINS ?? 'http://localhost:5173').split(','),
+  frontendUrl: process.env.FRONTEND_URL ?? 'http://localhost:5173',
+
   jwt: {
     secret: process.env.JWT_SECRET ?? 'changeme-jwt-secret',
     refreshSecret: process.env.JWT_REFRESH_SECRET ?? 'changeme-refresh-secret',
